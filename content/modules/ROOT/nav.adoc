@@ -1,6 +1,9 @@
 *Introduction*
 
-* xref:lab_access_cluster.adoc[Access your ROSA cluster]
+* xref:lab_2_access_cluster.adoc[Access your ROSA cluster]
+* xref:lab_3_cloudwatch.adoc[Configure Red Hat OpenShift Logging with AWS Cloudwatch]
+* xref:lab_4_deploy_app.adoc[Deploy an application with AWS Database]
+
 
 
 
