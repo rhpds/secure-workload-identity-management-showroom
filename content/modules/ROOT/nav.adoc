@@ -1,7 +1,12 @@
-* xref:module-01.adoc[1. RPM Native Container]
-** xref:module-01.adoc#repositories[Repositories]
-** xref:module-01.adoc#software[Software]
+*Introduction*
 
-* xref:module-02.adoc[2. GitHub Sourced Container]
-** xref:module-02.adoc#prerequisites[Install Prerequisites]
-** xref:module-02.adoc#container[Enable Container]
+* xref:lab_2_access_cluster.adoc[Access your ROSA cluster]
+* xref:lab_3_cloudwatch.adoc[Configure Red Hat OpenShift Logging with AWS Cloudwatch]
+* xref:lab_4_deploy_app.adoc[Deploy an application with AWS Database]
+
+
+
+
+*Conclusion and What's Next*
+
+* xref:conclusion.adoc[Conclusion & What's Next]
