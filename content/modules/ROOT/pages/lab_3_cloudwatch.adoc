@@ -1,0 +1,599 @@
+== Introduction
+
+ROSA HCP clusters now only support openshift Logging 6.x and above. 
+
+This lab aims to provide a step-by-step guide for implementing logging 6.x on ROSA HCP, setting up a log store with Loki with S3 and/or log forwarding to AWS CloudWatch.
+
+== Components of the Logging Subsystem
+
+The OpenShift logging subsystem is designed to collect, store, and visualize logs from various sources within the cluster, including node system logs, application container logs, and infrastructure logs. The OpenShift logging subsystem comprises several key components that work together to achieve log aggregation and management. The collector, residing on each node in the OpenShift cluster, is responsible for gathering logs. The primary implementation for the collector has historically been FluentD. However, a newer alternative, Vector, is increasingly being adopted for its performance and features. The collector gathers system logs from journald and container logs from /var/log/containers/*.log. Additionally, it can be configured to collect audit logs from /var/log/audit/audit.log. The collector is deployed and managed as a DaemonSet, ensuring that a collector pod runs on every node within the OpenShift cluster. The aggregated logs are then stored in a log store. The default log store for OpenShift Logging has traditionally been Elasticsearch. However, Loki is now offered as a performant alternative, particularly in ROSA HCP environments now defaults to Loki Operator. The ROSA HCP cluster log visualization component is provided using Cluster Observability Operator’s (COO) Logging UI Plugin.
+
+Refer to https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/logging/index[openshift logging official documentation] for more details.
+
+For ROSA HCP with logging 6 now required following operators
+
+
+. Loki Operator (log store)
+. Red Hat OpenShift Logging Operator
+. Cluster Observability Operator (log visualizing)
+
+== Create environment variables
+. First, let's set some helper variables that we'll need throughout this section of the workshop. To do so, run the following command:
++
+[source,sh,role=execute]
+----
+export REGION=$(oc get infrastructure cluster -o=jsonpath="{.status.platformStatus.aws.region}")
+export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io cluster \
+-o jsonpath='{.spec.serviceAccountIssuer}' | sed  's|^https://||')
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+export AWS_PAGER=""
+export CLUSTER_NAME=$(oc get infrastructure cluster -o=jsonpath="{.status.apiServerURL}" | awk -F '.' '{print $2}')
+export LOKISTACK_BUCKET_NAME=${CLUSTER_NAME}-lokistack-storage
+export LOGGROUP_PREFIX=logging-${CLUSTER_NAME}
+echo REGION:$REGION OIDC_ENDPOINT:$OIDC_ENDPOINT AWS_ACCOUNT_ID:$AWS_ACCOUNT_ID CLUSTER_NAME:$CLUSTER_NAME LOKISTACK_BUCKET_NAME:$LOKISTACK_BUCKET_NAME LOGGROUP_PREFIX: $LOGGROUP_PREFIX
+----
+
+== Install the Loki Operator
+. Create a S3 bucket for the LokiStack Operator
++
+[source,sh,role=execute]
+----
+aws s3 mb --region ${REGION} s3://${LOKISTACK_BUCKET_NAME}
+----
+
+. Create a S3 IAM policy document for the Loki operator
++
+[source,sh,role=execute]
+----
+cat << EOF > s3_policy.json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "LokiStorage",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${LOKISTACK_BUCKET_NAME}",
+                "arn:aws:s3:::${LOKISTACK_BUCKET_NAME}/*"
+            ]
+        }
+    ]
+}
+EOF
+----
+
+. Create a S3 IAM Policy for Loki stack access
++
+[source,sh,role=execute]
+----
+POLICY_ARN_S3=$(aws --region "$REGION" --query Policy.Arn \
+--output text iam create-policy \
+--policy-name "${CLUSTER_NAME}-lokistack-access-policy" \
+--policy-document file://s3_policy.json)
+
+echo $POLICY_ARN_S3
+----
+
+. Create an IAM Role trust policy
++
+[source,sh,role=execute]
+----
+cat <<EOF > s3-trust-policy.json
+{
+   "Version": "2012-10-17",
+   "Statement": [
+   {
+   "Effect": "Allow",
+   "Condition": {
+     "StringEquals" : {
+       "${OIDC_ENDPOINT}:sub": [
+                        "system:serviceaccount:openshift-logging:logging-collector",
+                        "system:serviceaccount:openshift-logging:logging-loki"
+                    ]
+      }
+    },
+    "Principal": {
+     "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_ENDPOINT}"
+    },
+    "Action": "sts:AssumeRoleWithWebIdentity"
+    }
+    ]
+}
+EOF
+----
+
+
+. Create an IAM Role and link the trust policy
++
+[source,sh,role=execute]
+----
+ROLE_ARN_S3=$(aws iam create-role --role-name "${CLUSTER_NAME}-lokistack-access-role" \
+--assume-role-policy-document file://s3-trust-policy.json \
+--query Role.Arn --output text)
+echo $ROLE_ARN_S3
+----
+
+. Attach S3 IAM Policy for Loki stack access to the above role
++
+[source,sh,role=execute]
+----
+aws iam attach-role-policy \
+--role-name "${CLUSTER_NAME}-lokistack-access-role" \
+--policy-arn $POLICY_ARN_S3
+----
+
+. OpenShift project for Loki operator (Note: ROSA HCP cluster has a built in openshift-operators-redhat project. Make sure it has the “openshift.io/cluster-monitoring: “true”” label.)
++
+[source,sh,role=execute]
+----
+oc label namespace openshift-operators-redhat openshift.io/cluster-monitoring="true"
+----
+
+. Create an OperatorGroup
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: loki-operator
+  namespace: openshift-operators-redhat
+spec:
+  upgradeStrategy: Default
+EOF
+----
+
+. Create a Subscription for Loki Operator
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: loki-operator
+  namespace: openshift-operators-redhat
+spec:
+  channel: stable-6.3
+  installPlanApproval: Automatic
+  name: loki-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Verify Operator installation. This may take a minute to complete.
++
+[source,sh,role=execute]
+----
+oc get csv -n openshift-operators-redhat
+----
++
+.Sample Output:
+[source,text,options=nowrap]
+----
+NAME                     DISPLAY                     VERSION   REPLACES                 PHASE
+loki-operator.v6.2     Loki Operator               6.2.2     loki-operator.v6.2.1     Succeeded
+----
+
+. Label the openshift-logging namespace to deploy the LokiStack:(Note: ROSA HCP cluster has a built in openshift-logging project. Make sure it has the “openshift.io/cluster-monitoring: “true”” label. If not add label using following command)
++
+[source,sh,role=execute]
+----
+oc label namespace openshift-logging openshift.io/cluster-monitoring="true"
+----
+
+. Create a secret with the above Role for Loki stack to access S3 bucket.
++
+[source,sh,role=execute]
+----
+oc -n openshift-logging create secret generic "logging-loki-aws" \
+--from-literal=bucketnames="${LOKISTACK_BUCKET_NAME}" \
+--from-literal=region="${REGION}" \
+--from-literal=audience="openshift" \
+--from-literal=role_arn="${ROLE_ARN_S3}" \
+--from-literal=endpoint="https://s3.${REGION}.amazonaws.com"
+----
+
+
+. Create a LokiStack custom resource
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: logging-loki
+  namespace: openshift-logging
+spec:
+  size: 1x.pico
+  storage:
+    schemas:
+      - effectiveDate: '2023-10-15'
+        version: v13
+    secret:
+      name: logging-loki-aws
+      type: s3
+      credentialMode: token
+  storageClassName: gp3-csi
+  tenants:
+    mode: openshift-logging
+EOF
+----
+
+
+. Verify LokiStack installation
++
+[source,sh,role=execute]
+----
+oc get pods -n openshift-logging
+----
+
+== Install the OpenShift Cluster Logging Operator
+
+. Create an OperatorGroup object
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: cluster-logging
+  namespace: openshift-logging
+spec:
+  upgradeStrategy: Default
+EOF
+----
+
+. Create a Subscription object for Red Hat OpenShift Logging Operator
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: cluster-logging
+  namespace: openshift-logging
+spec:
+  channel: stable-6.2
+  installPlanApproval: Automatic
+  name: cluster-logging
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Verify the Operator installation, the PHASE should be Succeeded
++
+[source,sh,role=execute]
+----
+oc get csv -n openshift-logging
+----
++
+. Sample Output
+[source,text,options=nowrap]
+----
+NAME                     DISPLAY                     VERSION   REPLACES                 PHASE
+cluster-logging.v6.2.2   Red Hat OpenShift Logging   6.2.2     cluster-logging.v6.2.1   Succeeded
+loki-operator.v6.2.2     Loki Operator               6.2.2     loki-operator.v6.2.1     Succeeded
+----
+
+. Create a service account to be used by the log collector:
++
+[source,sh,role=execute]
+----
+oc create sa logging-collector -n openshift-logging
+----
+
+. Grant necessary permissions to the service account so it’s able to collect and forward logs. In this example, the collector is provided permissions to collect logs from infrastructure, audit and application logs.
++
+[source,sh,role=execute]
+----
+oc adm policy add-cluster-role-to-user logging-collector-logs-writer -z logging-collector -n openshift-logging
+oc adm policy add-cluster-role-to-user collect-application-logs -z logging-collector -n openshift-logging
+oc adm policy add-cluster-role-to-user collect-infrastructure-logs -z logging-collector -n openshift-logging
+oc adm policy add-cluster-role-to-user collect-audit-logs -z logging-collector -n openshift-logging
+----
+
+. Create a ClusterLogForwarder CR to store logs in S3
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: logging-collector
+  outputs:
+  - name: lokistack-out
+    type: lokiStack
+    lokiStack:
+      target:
+        name: logging-loki
+        namespace: openshift-logging
+      authentication:
+        token:
+          from: serviceAccount
+    tls:
+      ca:
+        key: service-ca.crt
+        configMapName: openshift-service-ca.crt
+  pipelines:
+  - name: infra-app-logs
+    inputRefs:
+    - application
+    - infrastructure
+    - audit
+    outputRefs:
+    - lokistack-out
+EOF
+----
+
+. Confirm you can see collector pods called “instance” starting up using the following command. There should be one per node. Wait until all instances show running.
+oc get pods -n openshift-logging | grep instance
++
+[source,sh,role=execute]
+----
+oc get pods -n openshift-logging | grep instance
+----
++
+. Sample Output
+[source,text,options=nowrap]
+----
+instance-6tk4f                                1/1     Running             0          8s
+instance-dl2wt                                1/1     Running             0          9s
+instance-ggfb9                                1/1     Running             0          8s
+instance-qhtnj                                1/1     Running             0          8s
+instance-zpnr5                                1/1     Running             0          9s
+----
+
+
+
+== Configuring log forwarding to cloudwatch
+
+The ClusterLogForwarder (CLF) allows users to configure forwarding of logs to various destinations (i.e AWS cloudwatch) apart from ClusterLogging storage system (i.e: Loki stack)
+
+. Create a CW IAM policy document for CLF
++
+[source,sh,role=execute]
+----
+cat << EOF > cw-policy.json
+{
+"Version": "2012-10-17",
+"Statement": [
+   {
+         "Effect": "Allow",
+         "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:DescribeLogGroups",
+            "logs:DescribeLogStreams",
+            "logs:PutLogEvents",
+            "logs:PutRetentionPolicy"
+         ],
+         "Resource": "arn:aws:logs:${REGION}:${AWS_ACCOUNT_ID}:log-group:${LOGGROUP_PREFIX}*"
+   }
+]
+}
+EOF
+----
+
+. Create the CW IAM Policy for CLF’s access
++
+[source,sh,role=execute]
+----
+POLICY_ARN_CW=$(aws --region "$REGION" --query Policy.Arn \
+--output text iam create-policy \
+--policy-name "${CLUSTER_NAME}-CLF-CW-policy" \
+--policy-document file://cw-policy.json)
+
+echo $POLICY_ARN_CW
+----
+
+. Create an IAM Role trust policy document
++
+[source,sh,role=execute]
+----
+cat <<EOF > ./trust-cw-policy.json
+{
+   "Version": "2012-10-17",
+   "Statement": [{
+     "Effect": "Allow",
+     "Principal": {
+       "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_ENDPOINT}"
+     },
+     "Action": "sts:AssumeRoleWithWebIdentity",
+     "Condition": {
+       "StringEquals": {
+         "${OIDC_ENDPOINT}:sub": "system:serviceaccount:openshift-logging:logging-collector"
+       }
+     }
+   }]
+}
+EOF
+----
+
+. Create an IAM Role and link the trust policy
++
+[source,sh,role=execute]
+----
+ROLE_ARN_CW=$(aws iam create-role --role-name "${CLUSTER_NAME}-ROSACloudWatch" \
+--assume-role-policy-document file://trust-cw-policy.json \
+--query Role.Arn --output text)
+
+echo ${ROLE_ARN_CW}
+----
+
+. Attach CW IAM Policy to the above role
++
+[source,sh,role=execute]
+----
+aws iam attach-role-policy \
+--role-name "${CLUSTER_NAME}-ROSACloudWatch" \
+--policy-arn $POLICY_ARN_CW
+----
+
+. Create a secret with above Role for CLF to access CW
++
+[source,sh,role=execute]
+----
+oc -n openshift-logging create secret generic "cw-secret" \
+--from-literal=role_arn="${ROLE_ARN_CW}"
+----
+
+. Create a ClusterLogForwarder CR to forward logs to AWS cloudwatch. Note: Note: Make sure to format group name and set correct AWS region.
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: "observability.openshift.io/v1"
+kind: ClusterLogForwarder
+metadata:
+  name: cloudwatch
+  namespace: openshift-logging
+spec:
+  managementState: Managed
+  outputs:
+  - name: cloudwatch
+    type: cloudwatch
+    cloudwatch:
+      authentication:
+        iamRole:
+          roleARN:
+            key: role_arn
+            secretName: cw-secret
+          token:
+            from: serviceAccount
+        type: iamRole
+      groupName: logging-${CLUSTER_NAME}.{.log_type||"none-typed-logs"}
+      region: ${REGION}
+      tuning:
+        compression: zstd
+        delivery: atMostOnce
+        maxRetryDuration: 30
+        maxWrite: 10M
+        minRetryDuration: 5
+  pipelines:
+  - name: cloudwatch
+    inputRefs:
+    - application
+    - infrastructure
+    - audit
+    outputRefs:
+    - cloudwatch
+  serviceAccount:
+    name: logging-collector
+EOF
+----
+
+. Verify CW Log groups by logging into AWS, selecting the region and opening Cloudwatch dashboard.
+
+
+Congratulations!
+
+You've successfully forwarded your cluster's logs to the Amazon CloudWatch service.
+
+== Log visualization in OpenShift console
+
+Visualization for logging is provided by deploying the Logging UI Plugin of the Cluster Observability Operator(COO). Follow detail instructions for https://docs.redhat.com/en/documentation/red_hat_openshift_cluster_observability_operator/1-latest/html-single/about_red_hat_openshift_cluster_observability_operator/index#installing-the-cluster-observability-operator-in-the-web-console-_installing_the_cluster_observability_operator[Installing the Cluster Observability operator]
+
+. Openshift project for COO
++
+[source,sh,role=execute]
+----
+oc create ns  openshift-cluster-observability-operator
+----
+
+. Create an OperatorGroup object for COO
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-cluster-observability-operator
+  namespace: openshift-cluster-observability-operator
+spec:
+  upgradeStrategy: Default
+EOF
+----
+
+. Create a Subscription object for the Cluster Oberservability Operator
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: cluster-observability-operator
+  namespace: openshift-cluster-observability-operator
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: cluster-observability-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+----
+
+. Verify the Cluster Oberservability Operator Installation
++
+[source,sh,role=execute]
+----
+oc get csv -n openshift-cluster-observability-operator
+----
+Wait until the Cluster Observability Operator shows Succeeded
+
+. Create a Cluster Observability Operator Logging UI plugin CR
++
+[source,sh,role=execute]
+----
+oc create -f - <<EOF
+apiVersion: observability.openshift.io/v1alpha1
+kind: UIPlugin
+metadata:
+  name: logging
+spec:
+  type: Logging
+  logging:
+    lokiStack:
+      name: logging-loki
+    logsLimit: 50
+    timeout: 30s
+EOF
+----
+
+. Verify Logging UI plugin Wait until you see the openshift web console refresh request. Once the console is refreshed, expand Observe in the left hand side of the openshift console and go to the log tab.
+
+
+
+
+
+
+
+
+
+
+== Summary
+
+Here you learned:
+
+* Create an AWS IAM trust policy and role to grant your cluster access to Amazon CloudWatch
+* Install the OpenShift Cluster Logging Operator in your cluster
+* Configure `ClusterLogForwarder` and `ClusterLogging` objects to forward infrastructure, audit and application logs to Amazon CloudWatch
