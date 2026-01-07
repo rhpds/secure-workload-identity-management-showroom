@@ -1,5 +1,5 @@
 name: modules
-title: Default Title
+title: Defense in Depth - Advanced Security for Container Workloads on ROSA
 version: master
 nav:
   - modules/ROOT/nav.adoc

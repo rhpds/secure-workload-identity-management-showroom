@@ -4,6 +4,9 @@
 * xref:lab_3_cloudwatch.adoc[Configure Red Hat OpenShift Logging with AWS Cloudwatch]
 * xref:lab_4_deploy_app.adoc[Deploy an application with AWS Database]
 * xref:lab_5_secrets_mgr.adoc[Using AWS Secrets Manager CSI on Red Hat OpenShift Service on AWS with STS]
+* xref:lab_6_ack.adoc[Using AWS Controllers for Kubernetes on Red Hat OpenShift Service on AWS]
+* xref:lab_7_network.adoc[Network policies on Red Hat OpenShift Service on AWS]
+* xref:lab_9_cognito.adoc[Integrating ROSA cluster with Amazon Cognito]
 
 
 
