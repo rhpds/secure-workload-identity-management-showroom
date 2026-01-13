@@ -6,7 +6,8 @@
 * xref:lab_5_secrets_mgr.adoc[Using AWS Secrets Manager CSI on Red Hat OpenShift Service on AWS with STS]
 * xref:lab_6_ack.adoc[Using AWS Controllers for Kubernetes on Red Hat OpenShift Service on AWS]
 * xref:lab_7_network.adoc[Network policies on Red Hat OpenShift Service on AWS]
-* xref:lab_8_rhacs.adoc[Integrating ROSA cluster with Amazon Cognito]
+* xref:lab_8_rhacs.adoc[Introduction to RHACS]
+* xref:lab_8_rhacs_2.adoc[RHACS - Log4Shell deployment]
 * xref:lab_9_cognito.adoc[Integrating ROSA cluster with Amazon Cognito]
 
 
