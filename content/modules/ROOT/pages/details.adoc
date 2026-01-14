@@ -34,59 +34,59 @@ Your workshop environment includes:
 
 === Access credentials
 
-**Bastion host:**
+==== Bastion host
 
-[cols="2,3"]
+[cols="2,3",options="header"]
 |===
-| Variable | Description
+| Description | Value
 
-| `{ssh_command}` | SSH connection command
-| `{ssh_username}` | SSH username
-| `{ssh_password}` | SSH password
-| `{targethost}` | Bastion hostname
-|===
-
-**OpenShift cluster:**
-
-[cols="2,3"]
-|===
-| Variable | Description
-
-| `{rosa_openshift_console_url}` | Web console URL
-| `{rosa_openshift_admin_user}` | Admin username
-| `{rosa_openshift_admin_password}` | Admin password
-| `{rosa_openshift_api_url}` | API URL for CLI login
+| SSH command | {ssh_command}
+| Username | {ssh_username}
+| Password | {ssh_password}
+| Hostname | {targethost}
 |===
 
-**AWS console:**
+==== OpenShift cluster
 
-[cols="2,3"]
+[cols="2,3",options="header"]
 |===
-| Variable | Description
+| Description | Value
 
-| `{aws_web_console_url}` | AWS console URL
-| `{aws_web_console_user_name}` | AWS console username
-| `{aws_web_console_password}` | AWS console password
-|===
-
-**RHACS console (Labs 8-9):**
-
-[cols="2,3"]
-|===
-| Variable | Description
-
-| `{acs_route}` | RHACS console URL
-| `{acs_portal_username}` | RHACS username
-| `{acs_portal_password}` | RHACS password
+| Console URL | {rosa_openshift_console_url}
+| Admin username | {rosa_openshift_admin_user}
+| Admin password | {rosa_openshift_admin_password}
+| API URL | {rosa_openshift_api_url}
 |===
 
-**Workshop identifier:**
+==== AWS console
 
-[cols="2,3"]
+[cols="2,3",options="header"]
 |===
-| Variable | Description
+| Description | Value
 
-| `{guid}` | Your unique workshop ID
+| Console URL | {aws_web_console_url}
+| Username | {aws_web_console_user_name}
+| Password | {aws_web_console_password}
+|===
+
+==== RHACS console (Labs 8-9)
+
+[cols="2,3",options="header"]
+|===
+| Description | Value
+
+| Console URL | {acs_route}
+| Username | {acs_portal_username}
+| Password | {acs_portal_password}
+|===
+
+==== Workshop identifier
+
+[cols="2,3",options="header"]
+|===
+| Description | Value
+
+| Workshop ID | {guid}
 |===
 
 === AWS services used
