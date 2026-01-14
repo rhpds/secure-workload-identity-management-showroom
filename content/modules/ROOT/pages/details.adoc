@@ -34,8 +34,6 @@ Your workshop environment includes:
 
 === Access credentials
 
-All credentials are pre-configured and displayed on your workshop landing page.
-
 **Bastion host:**
 
 [cols="2,3"]
