@@ -1,8 +1,31 @@
-= Navigating RHACS
+= Lab 8: Introduction to Red Hat Advanced Cluster Security (RHACS)
 
-== RHACS Basics
+== Learning objectives
 
-RHACS provides the tools and capabilities to address the security needs of a cloud-native development approach on Kubernetes. These security features represent any developer or administrator’s primary work across various environments, including multiple datacenters, private clouds, or public clouds that run Kubernetes clusters.
+By the end of this lab, you will be able to:
+
+* Navigate the RHACS console and understand its main security dashboards
+* Use global search and local page filtering to find security information
+* Explore vulnerability management capabilities and CVE analysis
+* Review compliance reporting against industry standards (PCI DSS, NIST, CIS)
+* Understand network segmentation visualization and policy enforcement
+* Access security policy management and violation tracking
+* Explore configuration management and risk-based prioritization
+
+== Value proposition
+
+*For sales engineers*: This lab demonstrates RHACS as a comprehensive Kubernetes security platform that consolidates vulnerability scanning, compliance reporting, network visualization, and runtime threat detection into a single solution. Use this to show how RHACS eliminates the need for multiple point security tools.
+
+*Customer proof points*:
+
+* *Comprehensive visibility*: Single dashboard for security across development, build, and runtime stages
+* *Compliance automation*: Automated reporting against PCI DSS, HIPAA, NIST, CIS Benchmarks eliminates manual audit preparation
+* *Risk-based prioritization*: Contextual risk scoring helps security teams focus on the most critical vulnerabilities first
+* *Shift-left security*: Identify and block vulnerabilities at build time, reducing production security incidents by enabling developers to fix issues earlier
+
+== Introduction
+
+RHACS provides the tools and capabilities to address the security needs of a cloud-native development approach on Kubernetes. These security features represent any developer or administrator's primary work across various environments, including multiple datacenters, private clouds, or public clouds that run Kubernetes clusters.
 
 === RHACS features
 
@@ -373,3 +396,30 @@ The administration events tab is handy for troubleshooting platform issues by re
 image::01-pc-9.png[link=self, window=blank, width=100%]
 
 And lastly, the system health tab will help you handle things like administration usage, generate diagnostic bundles, monitor cluster status, sensor upgrades, credential expiration, and more.
+
+== Summary
+
+Excellent work! You have successfully explored the Red Hat Advanced Cluster Security (RHACS) console and its comprehensive security capabilities.
+
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Navigated the RHACS console dashboard and explored security widgets
+* ✅ Used global search and local filtering to find security information
+* ✅ Explored vulnerability management capabilities across container images
+* ✅ Reviewed compliance reporting dashboards for PCI DSS, NIST, and CIS Benchmarks
+* ✅ Examined network segmentation visualization and policies
+* ✅ Accessed security policy management and violation tracking
+* ✅ Explored platform configuration options and system health monitoring
+
+=== Key takeaways for customer conversations
+
+* *Unified security platform*: Single dashboard eliminates the need for multiple security tools across development and runtime
+* *Shift-left security*: Vulnerability scanning at build time prevents issues from reaching production
+* *Compliance automation*: One-click audit reports against multiple compliance frameworks save weeks of manual work
+* *Risk-based prioritization*: Contextual risk scoring helps teams focus on the most critical security issues first
+
+=== Next steps
+
+In the next lab, you will use RHACS to detect and prevent the Log4Shell vulnerability (CVE-2021-44228), demonstrating runtime policy enforcement and threat detection capabilities.

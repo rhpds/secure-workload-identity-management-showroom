@@ -13,7 +13,7 @@ Before starting this workshop, you should have:
 
 == Workshop duration
 
-*Estimated total time:* 90-120 minutes (2 hours)
+*Estimated total time:* 245 minutes (4 hours)
 
 Individual lab durations:
 - Lab 1: 15 minutes
@@ -21,6 +21,11 @@ Individual lab durations:
 - Lab 3: 30 minutes
 - Lab 4: 35 minutes
 - Lab 5: 20 minutes
+- Lab 6: 25 minutes
+- Lab 7: 20 minutes
+- Lab 8: 30 minutes
+- Lab 9: 25 minutes
+- Lab 10: 25 minutes
 
 == Environment information
 

@@ -35,7 +35,7 @@ By completing this workshop, you will be able to:
 
 == Workshop structure
 
-This workshop consists of 5 hands-on lab modules:
+This workshop consists of 10 hands-on lab modules:
 
 [cols="1,3,1,2", options="header"]
 |===
@@ -65,9 +65,34 @@ This workshop consists of 5 hands-on lab modules:
 | Implement AWS Secrets Manager
 | 20 min
 | Separate secrets from code for enhanced security
+
+| *Lab 6*
+| AWS Controllers for Kubernetes (ACK)
+| 25 min
+| Provision AWS infrastructure using GitOps workflows
+
+| *Lab 7*
+| Network Policies
+| 20 min
+| Implement zero-trust networking and microsegmentation
+
+| *Lab 8*
+| Introduction to RHACS
+| 30 min
+| Comprehensive security platform for vulnerability and compliance
+
+| *Lab 9*
+| RHACS Log4Shell Detection
+| 25 min
+| Detect and prevent critical vulnerabilities at runtime
+
+| *Lab 10*
+| Amazon Cognito Integration
+| 25 min
+| Enterprise SSO for centralized identity management
 |===
 
-*Total workshop time:* 120 minutes (2 hours)
+*Total workshop time:* 245 minutes (4 hours)
 
 == What you will build
 
@@ -79,6 +104,10 @@ By the end of this workshop, you will have:
 ** Source-to-Image (S2I) build process
 ** IAM Roles for Service Accounts (IRSA) for DynamoDB access
 ** AWS Secrets Manager for configuration management
+* AWS infrastructure (S3 buckets) provisioned via AWS Controllers for Kubernetes (ACK)
+* Network Policies implementing zero-trust networking patterns
+* Red Hat Advanced Cluster Security (RHACS) for vulnerability detection and policy enforcement
+* Amazon Cognito integration for enterprise SSO authentication
 * Production-ready security patterns for cloud-native applications
 
 == Business value proposition

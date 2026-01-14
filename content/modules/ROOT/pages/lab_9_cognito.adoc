@@ -1,3 +1,28 @@
+= Lab 10: Integrating ROSA with Amazon Cognito
+
+== Learning objectives
+
+By the end of this lab, you will be able to:
+
+* Understand AWS Cognito as a managed identity provider for ROSA clusters
+* Create and configure AWS Cognito User Pools for OpenShift authentication
+* Configure OpenShift OAuth to integrate with Amazon Cognito
+* Create and manage Cognito users for cluster access
+* Assign RBAC roles to Cognito-authenticated users in OpenShift
+* Implement single sign-on (SSO) for ROSA using enterprise identity providers
+
+== Value proposition
+
+*For sales engineers*: This lab demonstrates ROSA's seamless integration with AWS Cognito for enterprise SSO, eliminating the operational overhead of managing separate identity systems. Use this to show how ROSA fits naturally into AWS-first enterprise architectures.
+
+*Customer proof points*:
+
+* *Native AWS integration*: Use existing AWS Cognito user pools without additional identity infrastructure
+* *Single sign-on (SSO)*: Employees use corporate credentials to access OpenShift, improving user experience and security
+* *Centralized identity management*: IT teams manage all user access through AWS IAM Identity Center or Cognito
+* *Reduced operational overhead*: Eliminate the need to run and maintain separate LDAP or Active Directory servers for Kubernetes authentication
+* *Audit compliance*: All authentication events logged in AWS CloudTrail for compliance reporting
+
 == Introduction
 
 https://aws.amazon.com/cognito/[Amazon Cognito,window=_blank] is a fully managed authentication, authorization, and user management service provided by Amazon Web Services (AWS). It simplifies the process of adding user sign-up, sign-in, and access control to your ROSA Cluster.
@@ -218,7 +243,22 @@ I: To log in to the console, open https://console-openshift-console.apps.rosa-6n
 ----
 +
 
-. Logout from your OpenShift Web Console and browse back to the Console URL (`rosa describe cluster -c rosa-{GUID} -o json | jq -r '.console.url'` if you have forgotten it) and you should see a new option to login called *Cognito*.
+. Logout from your OpenShift Web Console and browse back to the Console URL to login via Cognito.
++
+**OpenShift Console Access via Cognito:**
++
+[cols="1,2"]
+|===
+| *Console URL* | `{rosa_openshift_console_url}`
+| *Authentication Method* | Select *Cognito* (instead of cluster-admin)
+| *Cognito Username* | (Created in previous step via `aws cognito-idp admin-create-user`)
+| *Password* | (Set via temporary password workflow)
+|===
++
+[TIP]
+====
+If you have forgotten the Console URL, run: `rosa describe cluster -c rosa-{GUID} -o json \| jq -r '.console.url'`
+====
 +
 
 image::/cognito-login.png[Cognito Login Screen]
@@ -335,8 +375,38 @@ You've successfully configured your Red Hat OpenShift Service on AWS (ROSA) clus
 
 == Summary
 
-Here you learned:
+Excellent work! You have successfully integrated ROSA with Amazon Cognito for enterprise single sign-on (SSO) authentication.
 
-* Configure Amazon Cognito to act as the ROSA identity provider
-* Configure your ROSA cluster to use Amazon Cognito for authentication
-* Grant your Cognito workshop user `cluster-admin` privileges in your ROSA cluster
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Created and configured an AWS Cognito User Pool for OpenShift authentication
+* ✅ Set up a Cognito User Pool domain for hosted authentication UI
+* ✅ Created Cognito users and managed temporary password workflows
+* ✅ Configured OpenShift OAuth to integrate with Amazon Cognito as identity provider
+* ✅ Tested Cognito-based login to the OpenShift web console
+* ✅ Assigned RBAC roles (cluster-admin) to Cognito-authenticated users
+* ✅ Removed the temporary htpasswd cluster-admin user for enhanced security
+
+=== Key takeaways for customer conversations
+
+* *Enterprise SSO*: Employees use corporate credentials (via Cognito) instead of managing separate Kubernetes passwords
+* *AWS-native integration*: Leverages existing AWS Cognito infrastructure without additional identity servers
+* *Centralized identity management*: IT teams manage all OpenShift access through AWS IAM Identity Center or Cognito User Pools
+* *Compliance and audit*: All authentication events logged in AWS CloudTrail for SOC 2, PCI DSS, and HIPAA compliance
+
+=== Workshop completion
+
+Congratulations on completing the **Defense in Depth: Advanced Security for Container Workloads on ROSA** workshop!
+
+You've now mastered critical ROSA security capabilities:
+- CloudWatch logging for centralized observability
+- IRSA for credential-free AWS service integration
+- AWS Secrets Manager for external secret management
+- AWS Controllers for Kubernetes (ACK) for infrastructure-as-code
+- NetworkPolicies for zero-trust networking
+- Red Hat Advanced Cluster Security (RHACS) for vulnerability detection and policy enforcement
+- Amazon Cognito for enterprise SSO
+
+You're now ready to deploy production-ready, secure container workloads on ROSA!

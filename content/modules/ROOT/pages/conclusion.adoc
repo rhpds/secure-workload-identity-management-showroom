@@ -6,11 +6,16 @@ Congratulations! You have successfully completed the *Defense in Depth: Advanced
 
 Throughout this workshop, you have gained hands-on experience with critical security capabilities:
 
-* *Environment validation*: Verified ROSA environment, CLI tools, and AWS quota for production readiness
-* *Secure cluster access*: Configured local admin authentication and accessed OpenShift web console
-* *Centralized logging*: Integrated ROSA with Amazon CloudWatch using OpenShift Logging 6.x and Loki stack
-* *Secure AWS integration*: Deployed cloud-native applications using IAM Roles for Service Accounts (IRSA) to eliminate static credentials
-* *External secrets management*: Implemented AWS Secrets Manager CSI driver for secure configuration management
+* *Lab 1 - Environment validation*: Verified ROSA environment, CLI tools, and AWS quota for production readiness
+* *Lab 2 - Secure cluster access*: Configured local admin authentication and accessed OpenShift web console
+* *Lab 3 - Centralized logging*: Integrated ROSA with Amazon CloudWatch using OpenShift Logging 6.x and Loki stack
+* *Lab 4 - Secure AWS integration*: Deployed cloud-native applications using IAM Roles for Service Accounts (IRSA) to eliminate static credentials
+* *Lab 5 - External secrets management*: Implemented AWS Secrets Manager CSI driver for secure configuration management
+* *Lab 6 - Infrastructure as Code*: Deployed AWS resources (S3) using AWS Controllers for Kubernetes (ACK) through GitOps
+* *Lab 7 - Zero-trust networking*: Implemented NetworkPolicies for pod-to-pod communication security and microsegmentation
+* *Lab 8 - Security platform*: Explored Red Hat Advanced Cluster Security (RHACS) for vulnerability management and compliance
+* *Lab 9 - Runtime protection*: Detected and prevented Log4Shell vulnerability using RHACS policy enforcement
+* *Lab 10 - Enterprise SSO*: Integrated Amazon Cognito for federated authentication and single sign-on
 
 == Key Takeaways
 
@@ -35,18 +40,13 @@ This workshop demonstrated how ROSA enables organizations to:
 
 Continue your ROSA security journey by exploring these advanced topics:
 
-=== Immediate Next Steps
-
-* *Network security*: Implement OpenShift Network Policies for workload microsegmentation
-* *Advanced threat detection*: Deploy Red Hat Advanced Cluster Security (RHACS) for runtime security
-* *Identity federation*: Configure Amazon Cognito for federated authentication and SSO
-
 === Advanced Security Capabilities
 
-* *AWS Controllers for Kubernetes (ACK)*: Provision AWS resources directly from OpenShift using GitOps
-* *Service mesh security*: Implement Red Hat OpenShift Service Mesh for mTLS and traffic policies
-* *Policy as code*: Use Open Policy Agent (OPA) and Gatekeeper for automated policy enforcement
-* *Compliance automation*: Integrate Red Hat Compliance Operator for continuous compliance validation
+* *Service mesh security*: Implement Red Hat OpenShift Service Mesh for mutual TLS (mTLS), traffic management, and observability
+* *Policy as code*: Use Open Policy Agent (OPA) and Gatekeeper for automated policy enforcement across clusters
+* *Compliance automation*: Integrate Red Hat Compliance Operator for continuous compliance validation against CIS, PCI DSS, and NIST frameworks
+* *Multi-cluster security*: Deploy Red Hat Advanced Cluster Management (RHACM) for policy enforcement across multiple ROSA clusters
+* *GitOps at scale*: Implement OpenShift GitOps (Argo CD) for declarative infrastructure and application delivery
 
 === Production Readiness
 
