@@ -28,4 +28,15 @@ By the end of this workshop, you'll have built a fully operational ROSA cluster 
 * Red Hat Advanced Cluster Security (RHACS) for vulnerability detection
 * Enterprise SSO with Amazon Cognito
 
+== Before you begin
+
+Please review these pages for complete workshop information:
+
+* xref:overview.adoc[Workshop Overview] - Learning objectives, skills you'll develop, and business value
+* xref:details.adoc[Workshop Details] - Prerequisites, environment setup, and technical requirements
+
+== Ready to start?
+
+Once you've reviewed the overview and details, proceed to xref:lab_1_explore_rosa.adoc[Lab 1: Explore your ROSA environment] to begin your hands-on learning journey.
+
 Let's build a secure, enterprise-grade container platform together!
