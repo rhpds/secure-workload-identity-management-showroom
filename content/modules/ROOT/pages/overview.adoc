@@ -43,56 +43,56 @@ This workshop consists of 10 hands-on lab modules:
 
 | *Lab 1*
 | Explore your ROSA environment
-| 15 min
+| 10 min
 | Ensure production readiness through environment validation
 
 | *Lab 2*
 | Access your ROSA cluster
-| 20 min
+| 10 min
 | Enable secure cluster administration and governance
 
 | *Lab 3*
 | Configure CloudWatch logging
-| 30 min
+| 15 min
 | Achieve compliance through centralized audit logging
 
 | *Lab 4*
 | Deploy application with IRSA
-| 35 min
+| 20 min
 | Eliminate security risks from static credentials
 
 | *Lab 5*
 | Implement AWS Secrets Manager
-| 20 min
+| 10 min
 | Separate secrets from code for enhanced security
 
 | *Lab 6*
 | AWS Controllers for Kubernetes (ACK)
-| 25 min
+| 10 min
 | Provision AWS infrastructure using GitOps workflows
 
 | *Lab 7*
 | Network Policies
-| 20 min
+| 10 min
 | Implement zero-trust networking and microsegmentation
 
 | *Lab 8*
 | Introduction to RHACS
-| 30 min
+| 15 min
 | Comprehensive security platform for vulnerability and compliance
 
 | *Lab 9*
 | RHACS Log4Shell Detection
-| 25 min
+| 10 min
 | Detect and prevent critical vulnerabilities at runtime
 
 | *Lab 10*
 | Amazon Cognito Integration
-| 25 min
+| 10 min
 | Enterprise SSO for centralized identity management
 |===
 
-*Total workshop time:* 245 minutes (4 hours)
+*Total workshop time:* 120 minutes (2 hours)
 
 == What you will build
 
