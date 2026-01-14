@@ -1,0 +1,102 @@
+= Conclusion and Next Steps
+
+== What You've Accomplished
+
+Congratulations! You have successfully completed the *Defense in Depth: Advanced Security for Container Workloads on ROSA* workshop.
+
+Throughout this workshop, you have gained hands-on experience with critical security capabilities:
+
+* *Environment validation*: Verified ROSA environment, CLI tools, and AWS quota for production readiness
+* *Secure cluster access*: Configured local admin authentication and accessed OpenShift web console
+* *Centralized logging*: Integrated ROSA with Amazon CloudWatch using OpenShift Logging 6.x and Loki stack
+* *Secure AWS integration*: Deployed cloud-native applications using IAM Roles for Service Accounts (IRSA) to eliminate static credentials
+* *External secrets management*: Implemented AWS Secrets Manager CSI driver for secure configuration management
+
+== Key Takeaways
+
+As you reflect on this workshop, remember these critical security principles:
+
+* *Defense in depth requires multiple security layers*: ROSA combines OpenShift security with native AWS services for comprehensive protection
+* *Eliminate static credentials*: AWS STS and IRSA provide temporary, scoped credentials reducing security risk
+* *Centralized observability is essential*: CloudWatch integration enables enterprise-wide security monitoring and compliance
+* *External secrets management reduces attack surface*: AWS Secrets Manager separates sensitive data from application code
+* *Cloud-native security is an ongoing journey*: Continuous monitoring, policy enforcement, and automation are key to maintaining security posture
+
+== Business value delivered
+
+This workshop demonstrated how ROSA enables organizations to:
+
+* *Reduce security incidents* by eliminating static credentials and implementing least-privilege access
+* *Accelerate compliance* through centralized logging, audit trails, and native AWS service integration
+* *Improve operational efficiency* with managed OpenShift reducing infrastructure management overhead
+* *Enable faster time-to-market* while maintaining enterprise-grade security controls
+
+== Next Steps
+
+Continue your ROSA security journey by exploring these advanced topics:
+
+=== Immediate Next Steps
+
+* *Network security*: Implement OpenShift Network Policies for workload microsegmentation
+* *Advanced threat detection*: Deploy Red Hat Advanced Cluster Security (RHACS) for runtime security
+* *Identity federation*: Configure Amazon Cognito for federated authentication and SSO
+
+=== Advanced Security Capabilities
+
+* *AWS Controllers for Kubernetes (ACK)*: Provision AWS resources directly from OpenShift using GitOps
+* *Service mesh security*: Implement Red Hat OpenShift Service Mesh for mTLS and traffic policies
+* *Policy as code*: Use Open Policy Agent (OPA) and Gatekeeper for automated policy enforcement
+* *Compliance automation*: Integrate Red Hat Compliance Operator for continuous compliance validation
+
+=== Production Readiness
+
+* *Disaster recovery*: Configure multi-region ROSA deployments with cross-region replication
+* *High availability*: Implement multi-AZ deployments and auto-scaling policies
+* *Cost optimization*: Use AWS Cost Explorer and OpenShift resource quotas for cost management
+* *Security hardening*: Apply CIS benchmarks and STIGs for regulated industries
+
+== Additional Resources
+
+=== Red Hat Documentation
+
+* link:https://docs.openshift.com/rosa/welcome/index.html[Red Hat OpenShift Service on AWS (ROSA) Documentation^]
+* link:https://docs.openshift.com/container-platform/latest/security/index.html[OpenShift Container Platform Security^]
+* link:https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-sts.html[ROSA with STS Tutorial^]
+* link:https://docs.openshift.com/container-platform/latest/observability/logging/log_storage/installing-log-storage.html[OpenShift Logging Documentation^]
+
+=== AWS Integration Resources
+
+* link:https://aws.amazon.com/rosa/[AWS ROSA Product Page^]
+* link:https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html[AWS IAM OIDC Identity Providers^]
+* link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_csi_driver.html[AWS Secrets Manager CSI Driver^]
+* link:https://aws.amazon.com/blogs/containers/using-irsa-in-red-hat-openshift-service-on-aws/[Using IRSA in ROSA (AWS Blog)^]
+
+=== Community and Support
+
+* link:https://github.com/rh-mobb[Red Hat MOBB GitHub Repository^]
+* link:https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift Platform^]
+* link:https://access.redhat.com/support[Red Hat Customer Portal^]
+* link:https://aws.amazon.com/rosa/resources/[ROSA Resources and Case Studies^]
+
+=== Advanced Topics
+
+* link:https://www.redhat.com/en/technologies/cloud-computing/openshift/advanced-cluster-security-kubernetes[Red Hat Advanced Cluster Security^]
+* link:https://aws-controllers-k8s.github.io/community/[AWS Controllers for Kubernetes (ACK)^]
+* link:https://www.openpolicyagent.org/[Open Policy Agent^]
+* link:https://docs.openshift.com/container-platform/latest/security/compliance_operator/compliance-operator-understanding.html[OpenShift Compliance Operator^]
+
+== Workshop Feedback
+
+Your feedback helps us improve this workshop for future learners.
+
+*What worked well in this workshop?*
+
+*What could be improved?*
+
+*What additional topics would you like to see covered?*
+
+Thank you for participating in this workshop! We hope you found it valuable for your ROSA security journey.
+
+---
+
+_For questions or support, please contact your Red Hat account team or visit the Red Hat Customer Portal._

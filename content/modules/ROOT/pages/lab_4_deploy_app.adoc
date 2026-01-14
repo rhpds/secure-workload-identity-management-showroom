@@ -1,3 +1,29 @@
+= Lab 4: Deploy application with IRSA
+
+== Learning objectives
+
+By the end of this lab, you will be able to:
+
+* Create and configure AWS DynamoDB tables for cloud-native applications
+* Implement IAM Roles for Service Accounts (IRSA) to eliminate static credentials
+* Configure OIDC trust policies for secure AWS service access from ROSA
+* Deploy Java applications using Quarkus and Source-to-Image (S2I) build strategy
+* Understand OpenShift BuildConfigs, ImageStreams, and Deployments
+* Expose applications using OpenShift Routes for external access
+
+== Value proposition
+
+*For sales engineers*: This lab demonstrates ROSA's most critical security capability – eliminating static credentials through IRSA. This is the #1 security concern customers raise about Kubernetes-AWS integration. Use this to show how ROSA solves credential management better than self-managed Kubernetes.
+
+*Customer proof points*:
+
+* *Security incident reduction*: IRSA eliminates static credentials, addressing the fact that access credentials are the first target attackers seek^1^
+* *Compliance simplification*: Temporary credentials automatically rotate, eliminating manual credential rotation processes and reducing audit scope for compliance
+* *Developer productivity*: Applications access AWS services without managing credentials or handling credential logic in application code
+* *Zero trust architecture*: Pod-level identity with least-privilege access enables true zero trust security implementations
+
+^1^ link:https://www.cncf.io/blog/2025/04/22/these-kubernetes-mistakes-will-make-you-an-easy-target-for-hackers/[CNCF: Kubernetes Security Best Practices^] - Credentials are primary attack targets
+
 == Introduction
 
 It's time for us to put our cluster to work and deploy a workload! We're going to build an example Java application, https://github.com/redhat-mw-demos/microsweeper-quarkus/tree/ROSA[microsweeper,window=_blank], using https://quarkus.io/[Quarkus,window=_blank] (a Kubernetes-native Java stack) and https://aws.amazon.com/dynamodb[Amazon DynamoDB,window=_blank]. We'll then deploy the application to our ROSA cluster and connect to the database over AWS's secure network.
@@ -81,7 +107,7 @@ IAM roles, on the other hand, define a set of permissions that can be assumed by
 
 This approach aligns with AWS' recommended best practices and provides several benefits. Firstly, it enhances security by reducing the risk associated with long-lived static credentials. Secondly, it simplifies the management of access controls by leveraging IAM roles, which can be centrally managed and easily updated. Finally, it enables seamless integration with AWS services, such as DynamoDB, by granting the necessary permissions to the service accounts associated with our pods.
 
-image::/irsa-sts.jpeg[irsa_sts]
+image::/irsa-sts.jpeg[IRSA STS Architecture Diagram,link=/irsa-sts.jpeg,window=_blank]
 
 . First, create a service account to use to assume an IAM role.
 To do so, run the following command:
@@ -301,26 +327,30 @@ quarkus build --no-tests
 
 Let's take a look at what this command did, along with everything that was created in your cluster.
 
-Return to your OpenShift Web Console. 
+Return to your OpenShift Web Console.
 
-[NOTE]
+**OpenShift Web Console Access:**
+
+[cols="1,2"]
+|===
+| *Console URL* | `{rosa_openshift_console_url}`
+| *Username* | `{rosa_openshift_admin_user}`
+| *Password* | `{rosa_openshift_admin_password}`
+|===
+
+[TIP]
 ====
-Reminder that you can get the URL and `admin`` password by running the following commands:
-[source,sh,role=execute]
-----
-oc whoami --show-console
-echo $COGNITO_ADMIN_PASSWORD
-----
+You can also get the console URL by running: `oc whoami --show-console`
 ====
 
 === Container Images
 
 From the Administrator perspective, expand _Builds_ and then _ImageStreams_, and select the _microsweeper-ex_ project.
 
-image::rosa-console-imagestreams.png[OpenShift Web Console - Imagestreams]
+image::rosa-console-imagestreams.png[OpenShift Web Console - Imagestreams,link=rosa-console-imagestreams.png,window=_blank]
 
 You will see two images that were created on your behalf when you ran the quarkus build command.
-There is one image for `openjdk-11` that comes with OpenShift as a Universal Base Image (UBI) that the application will run under.
+There is one image for `openjdk-17` that comes with OpenShift as a Universal Base Image (UBI) that the application will run under.
 With UBI, you get highly optimized and secure container images that you can build your applications with.
 For more information on UBI please visit the UBI section of the https://catalog.redhat.com/software/base-images[Red Hat Ecosystem Catalog,window=_blank].
 
@@ -332,8 +362,8 @@ This is the image for the application that was built automatically for you and p
 How did those images get built you ask?
 Back on the OpenShift Web Console, click on _BuildConfigs_ and then the _microsweeper-appservice_ entry.
 
-image::rosa-console-buildconfigs.png[OpenShift Web Console - BuildConfigs]
-image::rosa-console-microsweeper-appservice-buildconfig.png[OpenShift Web Console - microsweeper-appservice BuildConfig]
+image::rosa-console-buildconfigs.png[OpenShift Web Console - BuildConfigs,link=rosa-console-buildconfigs.png,window=_blank]
+image::rosa-console-microsweeper-appservice-buildconfig.png[OpenShift Web Console - microsweeper-appservice BuildConfig,link=rosa-console-microsweeper-appservice-buildconfig.png,window=_blank]
 
 When you ran the `quarkus build` command, this created the BuildConfig you can see here.
 In our quarkus settings, we set the deployment strategy to build the image using Docker.
@@ -354,28 +384,28 @@ You can read more about Builds https://docs.openshift.com/container-platform/lat
 
 To look at what the build actually did, click on Builds tab and then into the first Build in the list.
 
-image::rosa-console-builds.png[OpenShift Web Console - Builds]
+image::rosa-console-builds.png[OpenShift Web Console - Builds,link=rosa-console-builds.png,window=_blank]
 
 On the next screen, explore around.
 Look specifically at the YAML definition of the build and the logs to see what the build actually did.
 If your build failed for some reason, the logs are a great first place to start to look at to debug what happened.
 
-image::rosa-console-build-logs.png[OpenShift Web Console - Build Logs]
+image::rosa-console-build-logs.png[OpenShift Web Console - Build Logs,link=rosa-console-build-logs.png,window=_blank]
 
 === Image Deployment
 
 After the image was built, the source-to-image process then deployed the application for us.
 You can view the deployment under _Workloads_ \-> _Deployments_, and then click on the Deployment name.
 
-image::rosa-console-deployments.png[OpenShift Web Console - Deployments]
+image::rosa-console-deployments.png[OpenShift Web Console - Deployments,link=rosa-console-deployments.png,window=_blank]
 
 Explore around the deployment screen, check out the different tabs, look at the YAML that was created.
 
-image::rosa-console-deployment-yaml.png[OpenShift Web Console - Deployment YAML]
+image::rosa-console-deployment-yaml.png[OpenShift Web Console - Deployment YAML,link=rosa-console-deployment-yaml.png,window=_blank]
 
 Look at the pod the deployment created, and see that it is running.
 
-image::rosa-console-deployment-pods.png[OpenShift Web Console - Deployment Pods]
+image::rosa-console-deployment-pods.png[OpenShift Web Console - Deployment Pods,link=rosa-console-deployment-pods.png,window=_blank]
 
 The last thing we will look at is the route that was created for our application.
 In the quarkus properties file, we specified that the application should be exposed to the Internet.
@@ -386,13 +416,13 @@ You can read more about routes https://docs.openshift.com/container-platform/lat
 
 From the OpenShift Web Console menu, click on _Networking_\->__Routes__, and the _microsweeper-appservice_ route.
 
-image::rosa-console-routes.png[OpenShift Web Console - Routes]
+image::rosa-console-routes.png[OpenShift Web Console - Routes,link=rosa-console-routes.png,window=_blank]
 
 === Test the application
 
 While in the route section of the OpenShift Web Console, click the URL under _Location_:
 
-image::rosa-console-route-link.png[OpenShift Web Console - Route Link]
+image::rosa-console-route-link.png[OpenShift Web Console - Route Link,link=rosa-console-route-link.png,window=_blank]
 
 You can also get the the URL for your application using the command line:
 
@@ -446,9 +476,64 @@ This could be via a VPN connection, AWS DirectConnect, or something else.
 
 == Summary
 
-Here you learned:
+Outstanding! You have successfully deployed a cloud-native application with secure AWS integration using IRSA.
 
-* Create an AWS DynamoDB table for your application to use
-* Create a service account and AWS IAM resources to use IAM Roles for Service Accounts (IRSA).
-* Deploy the Microsweeper app and connect it to AWS DynamoDB as the backend database
-* Access the publicly exposed Microsweeper app using OpenShift routes.
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Created AWS DynamoDB table for application data (demonstrating multi-service architecture)
+* ✅ Configured OIDC trust policy for secure service account authentication (showing zero trust implementation)
+* ✅ Implemented IAM Roles for Service Accounts (IRSA) eliminating static credentials (proving security best practices)
+* ✅ Deployed Quarkus application using Source-to-Image (S2I) build (highlighting developer productivity features)
+* ✅ Explored OpenShift BuildConfigs, ImageStreams, and Deployments (understanding platform automation)
+* ✅ Exposed application via OpenShift Routes for public access (demonstrating ingress management)
+* ✅ Verified application functionality with AWS service integration (proving end-to-end security)
+
+=== Key takeaways for customer conversations
+
+* *Zero static credentials*: Application accesses DynamoDB using temporary AWS STS tokens that automatically rotate, eliminating credential management burden
+* *Pod-level identity*: Each Kubernetes service account maps to unique IAM role with least-privilege permissions, enabling granular security policies
+* *AWS-native security*: Uses same OIDC federation pattern as EKS, leveraging customers' existing AWS security knowledge and tooling
+* *Developer experience*: Developers write standard AWS SDK code without credential handling logic, reducing code complexity
+* *Audit trail*: CloudTrail automatically tracks all AWS API calls with pod-level attribution for complete accountability
+
+=== Value demonstration for prospects
+
+When showing this to customers, emphasize:
+
+* *Security risk reduction*: Eliminates static AWS access keys throughout the application stack, preventing credential exposure incidents
+* *Compliance wins*: Automatic credential rotation satisfies PCI DSS 8.2.4 requirements for key rotation and eliminates manual rotation processes
+* *Operational efficiency*: No credential distribution infrastructure needed—eliminates Vault clusters, secret management overhead, and key distribution systems
+* *Cost savings*: Eliminates dedicated secrets management infrastructure and associated operational costs
+
+=== Architecture diagram explanation
+
+The IRSA architecture you implemented follows this flow:
+
+1. *Pod requests AWS access* → ServiceAccount annotated with IAM role ARN
+2. *ROSA injects OIDC token* → Kubernetes token signed by cluster's OIDC provider
+3. *AWS STS validates token* → Verifies token signature against OIDC provider
+4. *Temporary credentials issued* → 1-hour TTL credentials with scoped IAM permissions
+5. *Application uses credentials* → AWS SDK automatically handles token refresh
+
+This architecture provides:
+
+* *Zero long-lived credentials* in cluster or application code
+* *Automatic credential rotation* every hour without application restarts
+* *Least-privilege access* at pod granularity, not cluster-wide
+
+=== Technical deep dive points
+
+For technical discussions, highlight:
+
+* *OIDC federation*: Same security model as AWS EKS, proving Red Hat uses AWS best practices
+* *Service account projection*: Kubernetes-native credential injection without sidecars or init containers
+* *IAM trust policy*: Precise control over which namespaces and service accounts can assume roles
+* *SDK compatibility*: Works with all AWS SDKs (Java, Python, Go, .NET) without code changes
+
+=== Next steps
+
+Your application is now running with secure AWS DynamoDB integration.
+
+In the next lab, you will implement AWS Secrets Manager to externalize application configuration and secrets, completing the defense-in-depth security strategy.

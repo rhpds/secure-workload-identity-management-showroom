@@ -1,11 +1,50 @@
-== The Workshop Environment You Are Using
+= Lab 1: Explore your ROSA environment
 
-Your environment has already been set up and with the tools you need to work with ROSA and AWS.
+== Learning objectives
+
+By the end of this lab, you will be able to:
+
+* Verify ROSA CLI installation and version compatibility for production deployment
+* Validate AWS CLI configuration and authentication for ROSA operations
+* Confirm AWS quota availability for ROSA cluster requirements
+* Understand ROSA login and authentication flow using Red Hat Cloud Console
+* Validate OpenShift client tools for cluster management
+
+== Value proposition
+
+*For sales engineers*: This lab demonstrates ROSA's enterprise readiness by showing how easily customers can validate their AWS environment before deployment. Use this to address common objections about AWS readiness and deployment complexity.
+
+*Customer proof points*:
+
+* *Reduced deployment risk*: Environment validation catches issues before deployment, preventing common misconfigurations that account for 53% of Kubernetes security incidents^1^
+* *Faster time-to-production*: Pre-flight checks eliminate troubleshooting delays in AWS environment preparation
+* *AWS integration confidence*: ROSA's native AWS integration provides production-ready managed OpenShift on AWS infrastructure
+
+^1^ link:https://www.redhat.com/en/engage/state-kubernetes-security-report-2024[Red Hat State of Kubernetes Security Report 2024^] - 53% of security incidents due to misconfigurations
+
+== The workshop environment you are using
+
+Your environment has already been set up with the tools you need to work with ROSA and AWS.
 
 Your workshop environment consists of several components which have been pre-configured and are ready to use.
 This includes an Amazon Web Services (AWS) account, and many other supporting resources.
 
 ROSA is enabled on the AWS account used for this lab - and the ROSA CLI as well as AWS CLI tools are installed and configured on your bastion VM.
+
+**Bastion Host Access:**
+
+[cols="1,2"]
+|===
+| *SSH Command* | `{ssh_command}`
+| *Username* | `{ssh_username}`
+| *Password* | `{ssh_password}`
+| *Hostname* | `{targethost}`
+|===
+
+[NOTE]
+====
+All commands in this workshop should be run on the bastion host. Use the SSH credentials above to connect if not already connected.
+====
 
 === Validate installed tools
 
@@ -129,6 +168,31 @@ I: AWS quota ok. If cluster installation fails, validate actual AWS resource usa
 rosa/rosa_getting_started/rosa-required-aws-service-quotas.html
 ----
 +
-See https://docs.openshift.com/rosa/rosa_planning/rosa-sts-required-aws-service-quotas.html[the documentation] for more details regarding quotas.
+See link:https://docs.openshift.com/rosa/rosa_planning/rosa-sts-required-aws-service-quotas.html[the documentation^] for more details regarding quotas.
 
-You have now successfully reviewed your account and environment and are ready to work with ROSA and AWS.
+== Summary
+
+Congratulations! You have now successfully validated your ROSA environment.
+
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Verified ROSA CLI installation and version (demonstrating ROSA's mature tooling ecosystem)
+* ✅ Validated AWS CLI configuration with proper authentication (showing native AWS integration)
+* ✅ Confirmed OpenShift client tools are properly installed (highlighting familiar Kubernetes tooling)
+* ✅ Authenticated to Red Hat Cloud Console via ROSA CLI (demonstrating Red Hat's unified management)
+* ✅ Verified AWS quota availability for ROSA deployment (proving production readiness)
+
+=== Key takeaways for customer conversations
+
+* *Enterprise tooling*: ROSA provides production-grade CLI tools that integrate seamlessly with existing DevOps workflows
+* *AWS-native integration*: ROSA authentication uses standard AWS IAM, reducing security complexity and leveraging existing AWS investments
+* *Pre-deployment validation*: Built-in verification commands reduce deployment risk and accelerate time-to-production
+* *Unified management*: Single Red Hat Cloud Console for managing ROSA across multiple AWS regions and accounts
+
+=== Next steps
+
+You are now ready to access your ROSA cluster and begin configuring secure workload deployments.
+
+In the next lab, you will create cluster admin access and log in to the OpenShift web console.

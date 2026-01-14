@@ -1,0 +1,210 @@
+= Workshop details
+
+== Prerequisites
+
+Before starting this workshop, you should have:
+
+* *Basic understanding of Kubernetes concepts* (pods, deployments, services)
+* *Familiarity with AWS core services* (IAM, EC2, S3)
+* *Experience with command-line tools* (bash, git)
+* *Knowledge of container concepts* and Docker basics
+
+*No prior ROSA experience is required* – we'll guide you through everything step by step.
+
+== Workshop duration
+
+*Estimated total time:* 90-120 minutes (2 hours)
+
+Individual lab durations:
+- Lab 1: 15 minutes
+- Lab 2: 20 minutes
+- Lab 3: 30 minutes
+- Lab 4: 35 minutes
+- Lab 5: 20 minutes
+
+== Environment information
+
+=== Provided resources
+
+Your workshop environment includes:
+
+* *Pre-deployed ROSA cluster* - A fully managed Red Hat OpenShift cluster running on AWS
+* *AWS account access* - Credentials and access to required AWS services
+* *Bastion host* - Terminal access for running commands
+* *Pre-installed tools*:
+** ROSA CLI (`rosa`)
+** OpenShift CLI (`oc`)
+** AWS CLI (`aws`)
+** Git, Helm, and other development tools
+
+=== Required variables
+
+Throughout the workshop, you will use several environment variables. These are pre-configured in your workshop environment and displayed on your workshop landing page.
+
+**OpenShift cluster access:**
+
+* `{rosa_openshift_console_url}` - OpenShift web console URL (used throughout all labs)
+* `{rosa_openshift_admin_user}` - Pre-created admin username (used in all labs if pre-provisioned)
+* `{rosa_openshift_admin_password}` - Pre-created admin password (used in all labs if pre-provisioned)
+* `{rosa_openshift_api_url}` - OpenShift API URL for CLI login (used in all labs if pre-provisioned)
+
+**Bastion host SSH access:**
+
+* `{ssh_command}` - Full SSH command to connect to bastion (e.g., `ssh rosa@bastion.tw27g.sandbox3402.opentlc.com`)
+* `{ssh_username}` (or `{bastion_ssh_user_name}`) - SSH username (typically `rosa`)
+* `{ssh_password}` (or `{bastion_ssh_password}`) - SSH password for bastion access
+* `{targethost}` (or `{bastion_public_hostname}`) - Bastion hostname
+
+**AWS Console access:**
+
+* `{aws_web_console_url}` - AWS web console login URL (used in Lab 3 for CloudWatch verification)
+* `{aws_web_console_user_name}` - AWS console username
+* `{aws_web_console_password}` - AWS console password
+
+**AWS CLI credentials (pre-configured):**
+
+* `{aws_access_key_id}` - AWS access key ID (pre-configured in environment)
+* `{aws_secret_access_key}` - AWS secret access key (pre-configured in environment)
+* `{aws_default_region}` (or `{aws_sandbox_account_id}`) - AWS region (typically us-east-2)
+
+**Workshop identifier:**
+
+* `{guid}` - Your unique workshop identifier (used in Labs 2, 4 for resource naming)
+
+**Dynamically derived variables (set automatically during labs):**
+
+The following variables are automatically retrieved from your cluster during the labs - you do NOT need to set these manually:
+
+* `REGION` - Retrieved from cluster configuration in Lab 3
+* `OIDC_ENDPOINT` - Retrieved from cluster authentication in Lab 3
+* `AWS_ACCOUNT_ID` - Retrieved using `aws sts get-caller-identity` in Lab 3
+* `CLUSTER_NAME` - Derived from cluster API server URL in Lab 3
+* `ADMIN_PASSWORD` - Created when you run `rosa create admin` in Lab 2 (if not pre-provisioned)
+
+**Example commands from Lab 3:**
+
+[source,bash]
+----
+export REGION=$(oc get infrastructure cluster -o=jsonpath="{.status.platformStatus.aws.region}")
+export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io cluster -o jsonpath='{.spec.serviceAccountIssuer}' | sed 's|^https://||')
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+export CLUSTER_NAME=$(oc get infrastructure cluster -o=jsonpath="{.status.apiServerURL}" | awk -F '.' '{print $2}')
+----
+
+**Where to find these variables:**
+
+All pre-configured variables are displayed on your workshop landing page. You can reference them anytime during the workshop.
+
+**When you'll need these variables:**
+
+* **Lab 1**: ROSA CLI authentication (uses pre-configured token)
+* **Lab 2**: OpenShift cluster login (CLI and web console)
+* **Lab 3**: CloudWatch verification in AWS console, OpenShift console for viewing logs
+* **Lab 4**: OpenShift console for viewing builds, deployments, and routes
+* **Lab 5**: Optional OpenShift console access for verification
+* **All labs**: Bastion host SSH access for running commands
+
+=== AWS services used
+
+This workshop integrates with the following AWS services:
+
+* *Amazon CloudWatch* - Centralized logging and monitoring
+* *AWS IAM* - Identity and access management
+* *AWS STS* - Security Token Service for temporary credentials
+* *Amazon S3* - Object storage for Loki log storage
+* *Amazon DynamoDB* - NoSQL database for application data
+* *AWS Secrets Manager* - External secrets management
+
+=== OpenShift components used
+
+You will work with these OpenShift operators and components:
+
+* *OpenShift Logging 6.x* - Log collection and forwarding
+* *Loki Operator* - Efficient log storage backend
+* *Cluster Observability Operator* - Logging UI integration
+* *Secrets Store CSI Driver* - External secrets mounting
+* *Source-to-Image (S2I)* - Container image building
+
+== What to expect
+
+=== Hands-on learning approach
+
+* *Execute real commands* - You'll run actual commands against a live ROSA cluster
+* *See immediate results* - Each step produces visible outcomes
+* *Build progressively* - Each lab builds on previous labs
+* *Enterprise patterns* - Learn production-ready security practices
+
+=== Workshop flow
+
+1. *Environment validation* - Verify all tools and access are ready
+2. *Cluster access* - Authenticate and explore your ROSA cluster
+3. *Logging setup* - Configure enterprise observability
+4. *Application deployment* - Deploy a cloud-native app with secure AWS integration
+5. *Secrets management* - Implement external secret store integration
+
+=== Support and troubleshooting
+
+* *Self-paced* - Work at your own speed
+* *Verification commands* - Each lab includes commands to verify success
+* *Expected outputs* - Sample outputs help you confirm correct execution
+* *Troubleshooting tips* - Common issues and solutions provided
+* *Lab instructors* - Available to assist if you encounter issues
+
+== Technical requirements
+
+=== Network access
+
+* *Internet connectivity* required for AWS and Red Hat services
+* *OpenShift console access* via HTTPS
+* *Terminal/SSH access* to bastion host
+
+=== Browser compatibility
+
+* Modern web browser for OpenShift web console
+* Recommended: Chrome, Firefox, Edge, Safari (latest versions)
+
+=== Skills assessment
+
+*Beginner level:*
+- Workshop provides detailed step-by-step instructions
+- Basic Linux command line knowledge helpful
+- No prior ROSA or OpenShift experience required
+
+*Intermediate/Advanced level:*
+- Can move through labs more quickly
+- Understand the "why" behind each security pattern
+- Can adapt patterns for your own environments
+
+== After the workshop
+
+=== What you'll be able to do
+
+* Deploy ROSA clusters with integrated AWS security services
+* Implement defense-in-depth security for containerized workloads
+* Configure enterprise observability and compliance controls
+* Eliminate static credentials using IRSA
+* Integrate external secret management
+* Apply these patterns in your production environments
+
+=== Next steps
+
+After completing this workshop, you can:
+
+* Implement these patterns in your organization
+* Explore advanced ROSA security features (RHACS, Network Policies)
+* Configure multi-cluster deployments
+* Integrate with existing enterprise systems
+* Achieve compliance certifications (SOC 2, PCI DSS, HIPAA)
+
+=== Additional resources
+
+* link:https://docs.openshift.com/rosa/welcome/index.html[ROSA Documentation^]
+* link:https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift^]
+* link:https://aws.amazon.com/rosa/[AWS ROSA Product Page^]
+* link:https://github.com/rh-mobb[Red Hat MOBB GitHub^]
+
+== Getting started
+
+When you're ready to begin, proceed to *Lab 1: Explore your ROSA environment* where you'll validate your workshop environment and prepare for hands-on learning.
+
+Let's build a secure, enterprise-grade container platform together!

@@ -1,8 +1,31 @@
 :markup-in-source: verbatim,attributes,quotes
 
+= Lab 2: Access your ROSA cluster
+
+== Learning objectives
+
+By the end of this lab, you will be able to:
+
+* Create local admin users for immediate cluster access in development and demo environments
+* Understand ROSA's authentication architecture and production identity provider recommendations
+* Log in to ROSA clusters using both CLI and web console interfaces
+* Verify cluster admin permissions using OpenShift authorization checks
+* Navigate the OpenShift web console for cluster management
+
+== Value proposition
+
+*For sales engineers*: This lab demonstrates ROSA's flexible authentication options, addressing both immediate demo needs (local auth) and production requirements (external identity providers). Use this to show how ROSA accommodates different deployment stages and enterprise identity integration.
+
+*Customer proof points*:
+
+* *Rapid demo capability*: Create cluster admin access quickly for POCs and demos, accelerating evaluation cycles
+* *Production flexibility*: Built-in support for enterprise identity providers (SAML, LDAP, OAuth, OIDC) enables seamless migration from development to production environments
+* *Familiar interfaces*: Standard Kubernetes CLI (`oc`) and intuitive web console leverage existing Kubernetes skills, reducing training requirements
+* *Enterprise security*: Role-based access control (RBAC) and cluster admin segregation enable secure multi-tenant operations
+
 ifndef::rosa_openshift_admin_user[]
 
-== Create a Local Admin User for Cluster Access
+== Create a local admin user for cluster access
 
 You can use built-in authentication to access your cluster immediately. This is done through the creation of a local privileged user.
 
@@ -113,9 +136,9 @@ router-default-7994f6fd58-z6gpm   1/1     Running   0          102s
 endif::[]
 ifdef::rosa_openshift_admin_user[]
 
-== Access the cluster using the Local Admin User
+== Access the cluster using the local admin user
 
-An admin user has already been creaeted for you on this cluster. If you created that cluster yourself you'd have to create an admin user as well.
+An admin user has already been created for you on this cluster. If you created that cluster yourself you'd have to create an admin user as well.
 
 The command to create an admin user is (don't run this command, the admin user has already been created for you):
 
@@ -169,7 +192,18 @@ endif::[]
 
 == Login to the OpenShift Web Console
 
-Next, let's log in to the OpenShift Web Console. To do so, follow the below steps:
+Next, let's log in to the OpenShift Web Console.
+
+**OpenShift Web Console Credentials:**
+
+[cols="1,2"]
+|===
+| *Console URL* | `{rosa_openshift_console_url}`
+| *Username* | `{rosa_openshift_admin_user}`
+| *Password* | `{rosa_openshift_admin_password}` (or use the password from the previous step)
+|===
+
+To access the console, follow the below steps:
 
 . First, we'll need to grab your cluster's web console URL. To do so, run the following command:
 +
@@ -190,4 +224,39 @@ https://console-openshift-console.apps.rosa-z8ssd.ls3a.p1.openshiftapps.com/
 +
 Congratulations! You're now logged into the cluster and ready to move on to the workshop content.
 
-If you have any issues please content your lab instructors who can help you out.
+== Summary
+
+Excellent work! You have successfully accessed your ROSA cluster using both CLI and web console.
+
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Created a local admin user using ROSA CLI (demonstrating rapid access provisioning)
+* ✅ Authenticated to the cluster via command line using `oc login` (showing Kubernetes-native tooling)
+* ✅ Verified cluster admin permissions with authorization checks (proving security controls work)
+* ✅ Accessed the OpenShift web console with admin credentials (highlighting intuitive UI)
+* ✅ Understood production identity provider options for enterprise deployments
+
+=== Key takeaways for customer conversations
+
+* *Flexible authentication*: ROSA supports both quick local auth for demos and enterprise identity providers (SAML, LDAP, OAuth, OIDC) for production
+* *Dual interfaces*: CLI for automation and infrastructure-as-code, web console for visualization and day-2 operations
+* *Security by default*: RBAC controls and admin segregation ensure secure multi-tenant deployments
+* *Enterprise migration path*: Seamless transition from local auth (dev/test) to federated identity (production) without cluster rebuild
+
+=== Value demonstration for prospects
+
+When showing this to customers, emphasize:
+
+* *Time-to-value*: Rapid cluster access compared to configuring self-managed Kubernetes authentication systems
+* *Familiar tooling*: Standard `oc` and `kubectl` commands work identically, leveraging existing Kubernetes skills
+* *Production-ready auth*: Built-in integration with enterprise identity providers customers already use (Active Directory, Okta, Azure AD, SAML, LDAP)
+
+=== Next steps
+
+You now have full cluster admin access and can manage your ROSA cluster.
+
+In the next lab, you will configure centralized logging with Amazon CloudWatch for enterprise observability and compliance.
+
+If you have any issues please contact your lab instructors who can help you out.
