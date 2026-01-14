@@ -11,6 +11,11 @@
 * xref:lab_3_cloudwatch.adoc[Lab 3: Configure CloudWatch logging]
 * xref:lab_4_deploy_app.adoc[Lab 4: Deploy application with IRSA]
 * xref:lab_5_secrets_mgr.adoc[Lab 5: Implement AWS Secrets Manager]
+* xref:lab_6_ack.adoc[Lab 6: Using AWS Controllers for Kubernetes]
+* xref:lab_7_network.adoc[Lab 7: Network policies on ROSA]
+* xref:lab_8_rhacs.adoc[Lab 8: Introduction to RHACS]
+* xref:lab_8_rhacs_2.adoc[Lab 9: RHACS - Log4Shell deployment]
+* xref:lab_9_cognito.adoc[Lab 10: Integrating ROSA with Amazon Cognito]
 
 *Conclusion*
 
