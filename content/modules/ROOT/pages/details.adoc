@@ -32,72 +32,64 @@ Your workshop environment includes:
 ** AWS CLI (`aws`)
 ** Git, Helm, and other development tools
 
-=== Required variables
+=== Access credentials
 
-Throughout the workshop, you will use several environment variables. These are pre-configured in your workshop environment and displayed on your workshop landing page.
+All credentials are pre-configured and displayed on your workshop landing page.
 
-**OpenShift cluster access:**
+**Bastion host:**
 
-* `{rosa_openshift_console_url}` - OpenShift web console URL (used throughout all labs)
-* `{rosa_openshift_admin_user}` - Pre-created admin username (used in all labs if pre-provisioned)
-* `{rosa_openshift_admin_password}` - Pre-created admin password (used in all labs if pre-provisioned)
-* `{rosa_openshift_api_url}` - OpenShift API URL for CLI login (used in all labs if pre-provisioned)
+[cols="2,3"]
+|===
+| Variable | Description
 
-**Bastion host SSH access:**
+| `{ssh_command}` | SSH connection command
+| `{ssh_username}` | SSH username
+| `{ssh_password}` | SSH password
+| `{targethost}` | Bastion hostname
+|===
 
-* `{ssh_command}` - Full SSH command to connect to bastion (e.g., `ssh rosa@bastion.tw27g.sandbox3402.opentlc.com`)
-* `{ssh_username}` (or `{bastion_ssh_user_name}`) - SSH username (typically `rosa`)
-* `{ssh_password}` (or `{bastion_ssh_password}`) - SSH password for bastion access
-* `{targethost}` (or `{bastion_public_hostname}`) - Bastion hostname
+**OpenShift cluster:**
 
-**AWS Console access:**
+[cols="2,3"]
+|===
+| Variable | Description
 
-* `{aws_web_console_url}` - AWS web console login URL (used in Lab 3 for CloudWatch verification)
-* `{aws_web_console_user_name}` - AWS console username
-* `{aws_web_console_password}` - AWS console password
+| `{rosa_openshift_console_url}` | Web console URL
+| `{rosa_openshift_admin_user}` | Admin username
+| `{rosa_openshift_admin_password}` | Admin password
+| `{rosa_openshift_api_url}` | API URL for CLI login
+|===
 
-**AWS CLI credentials (pre-configured):**
+**AWS console:**
 
-* `{aws_access_key_id}` - AWS access key ID (pre-configured in environment)
-* `{aws_secret_access_key}` - AWS secret access key (pre-configured in environment)
-* `{aws_default_region}` (or `{aws_sandbox_account_id}`) - AWS region (typically us-east-2)
+[cols="2,3"]
+|===
+| Variable | Description
+
+| `{aws_web_console_url}` | AWS console URL
+| `{aws_web_console_user_name}` | AWS console username
+| `{aws_web_console_password}` | AWS console password
+|===
+
+**RHACS console (Labs 8-9):**
+
+[cols="2,3"]
+|===
+| Variable | Description
+
+| `{acs_route}` | RHACS console URL
+| `{acs_portal_username}` | RHACS username
+| `{acs_portal_password}` | RHACS password
+|===
 
 **Workshop identifier:**
 
-* `{guid}` - Your unique workshop identifier (used in Labs 2, 4 for resource naming)
+[cols="2,3"]
+|===
+| Variable | Description
 
-**Dynamically derived variables (set automatically during labs):**
-
-The following variables are automatically retrieved from your cluster during the labs - you do NOT need to set these manually:
-
-* `REGION` - Retrieved from cluster configuration in Lab 3
-* `OIDC_ENDPOINT` - Retrieved from cluster authentication in Lab 3
-* `AWS_ACCOUNT_ID` - Retrieved using `aws sts get-caller-identity` in Lab 3
-* `CLUSTER_NAME` - Derived from cluster API server URL in Lab 3
-* `ADMIN_PASSWORD` - Created when you run `rosa create admin` in Lab 2 (if not pre-provisioned)
-
-**Example commands from Lab 3:**
-
-[source,bash]
-----
-export REGION=$(oc get infrastructure cluster -o=jsonpath="{.status.platformStatus.aws.region}")
-export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io cluster -o jsonpath='{.spec.serviceAccountIssuer}' | sed 's|^https://||')
-export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-export CLUSTER_NAME=$(oc get infrastructure cluster -o=jsonpath="{.status.apiServerURL}" | awk -F '.' '{print $2}')
-----
-
-**Where to find these variables:**
-
-All pre-configured variables are displayed on your workshop landing page. You can reference them anytime during the workshop.
-
-**When you'll need these variables:**
-
-* **Lab 1**: ROSA CLI authentication (uses pre-configured token)
-* **Lab 2**: OpenShift cluster login (CLI and web console)
-* **Lab 3**: CloudWatch verification in AWS console, OpenShift console for viewing logs
-* **Lab 4**: OpenShift console for viewing builds, deployments, and routes
-* **Lab 5**: Optional OpenShift console access for verification
-* **All labs**: Bastion host SSH access for running commands
+| `{guid}` | Your unique workshop ID
+|===
 
 === AWS services used
 
