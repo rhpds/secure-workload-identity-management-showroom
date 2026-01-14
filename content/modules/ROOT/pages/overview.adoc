@@ -11,15 +11,6 @@ This hands-on workshop teaches you to implement defense-in-depth security for co
 * *Manage external secrets securely* using AWS Secrets Manager CSI driver to separate sensitive data from application code
 * *Apply defense-in-depth principles* by combining multiple security layers for comprehensive workload protection
 
-== Skills you will develop
-
-* ROSA cluster architecture and AWS service integration
-* OpenShift Logging 6.x with Loki and CloudWatch
-* AWS IAM trust policies, STS credential management, and IRSA
-* Secrets management using CSI drivers and AWS Secrets Manager
-* Least-privilege access controls and compliance for regulated workloads
-* Cloud-native application deployment with security best practices
-
 == Workshop structure
 
 This workshop consists of 10 hands-on lab modules:
@@ -83,19 +74,14 @@ This workshop consists of 10 hands-on lab modules:
 
 == What you will build
 
-By the end of this workshop, you will have:
+By the end of this workshop, you will have a fully operational ROSA cluster with:
 
-* A fully operational ROSA cluster integrated with AWS security services
-* Centralized logging pipeline forwarding to Amazon CloudWatch
-* A Java application (Microsweeper game) deployed using:
-** Source-to-Image (S2I) build process
-** IAM Roles for Service Accounts (IRSA) for DynamoDB access
-** AWS Secrets Manager for configuration management
+* Centralized logging to Amazon CloudWatch using OpenShift Logging 6.x and Loki
+* A secure Java application (Microsweeper game) using IRSA for DynamoDB, AWS Secrets Manager, and S2I builds
 * AWS infrastructure (S3 buckets) provisioned via AWS Controllers for Kubernetes (ACK)
-* Network Policies implementing zero-trust networking patterns
-* Red Hat Advanced Cluster Security (RHACS) for vulnerability detection and policy enforcement
-* Amazon Cognito integration for enterprise SSO authentication
-* Production-ready security patterns for cloud-native applications
+* Network Policies for zero-trust networking and microsegmentation
+* RHACS for vulnerability detection and runtime policy enforcement
+* Amazon Cognito for enterprise SSO authentication
 
 == Business value
 
