@@ -15,8 +15,6 @@ Before starting this workshop, you should have:
 
 *Estimated total time:* 120 minutes (2 hours)
 
-For individual lab durations and detailed workshop structure, see xref:overview.adoc[Workshop Overview].
-
 == Environment information
 
 === Provided resources

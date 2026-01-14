@@ -2,7 +2,7 @@
 
 Welcome to the *Defense in Depth: Advanced Security for Container Workloads on ROSA* workshop!
 
-In this hands-on workshop, you'll learn how to implement enterprise-grade security for containerized workloads running on Red Hat OpenShift Service on AWS (ROSA). You'll gain practical experience with critical security capabilities that address the most common Kubernetes security challenges.
+In this hands-on workshop, you'll implement enterprise-grade security for containerized workloads on Red Hat OpenShift Service on AWS (ROSA), gaining practical experience with critical Kubernetes security capabilities.
 
 == Why this workshop matters
 
@@ -16,27 +16,13 @@ In today's cloud-native landscape, security is paramount. Organizations face inc
 
 This workshop demonstrates how ROSA addresses these challenges through a defense-in-depth security strategy that combines OpenShift's enterprise Kubernetes capabilities with native AWS security services.
 
-== What you'll accomplish
-
-By the end of this workshop, you'll have built a fully operational ROSA cluster integrated with AWS security services, including:
-
-* Centralized logging with Amazon CloudWatch
-* A cloud-native Java application deployed with secure AWS integration using IRSA (IAM Roles for Service Accounts)
-* External secrets management with AWS Secrets Manager
-* AWS infrastructure provisioning with AWS Controllers for Kubernetes (ACK)
-* Network Policies for zero-trust networking
-* Red Hat Advanced Cluster Security (RHACS) for vulnerability detection
-* Enterprise SSO with Amazon Cognito
-
 == Before you begin
 
 Please review these pages for complete workshop information:
 
-* xref:overview.adoc[Workshop Overview] - Learning objectives, skills you'll develop, and business value
-* xref:details.adoc[Workshop Details] - Prerequisites, environment setup, and technical requirements
+* xref:overview.adoc[Workshop Overview] - Learning objectives, lab structure, and business value
+* xref:details.adoc[Workshop Details] - Prerequisites, credentials, and environment setup
 
 == Ready to start?
 
-Once you've reviewed the overview and details, proceed to xref:lab_1_explore_rosa.adoc[Lab 1: Explore your ROSA environment] to begin your hands-on learning journey.
-
-Let's build a secure, enterprise-grade container platform together!
+Once you've reviewed the overview and details, proceed to xref:lab_1_explore_rosa.adoc[Lab 1: Explore your ROSA environment] to begin the workshop.
