@@ -1,12 +1,8 @@
 = Workshop overview
 
-== What you will learn
-
-This hands-on workshop teaches you how to implement defense-in-depth security for containerized workloads on Red Hat OpenShift Service on AWS (ROSA). You will gain practical experience with critical security capabilities that address the most common Kubernetes security challenges.
-
 == Learning objectives
 
-By completing this workshop, you will be able to:
+This hands-on workshop teaches you to implement defense-in-depth security for containerized workloads on Red Hat OpenShift Service on AWS (ROSA). By completing this workshop, you will be able to:
 
 * *Validate ROSA environment readiness* by verifying CLI tools, AWS quotas, and cluster prerequisites for production deployment
 * *Configure secure cluster access* using local admin authentication and OpenShift web console navigation
@@ -17,21 +13,12 @@ By completing this workshop, you will be able to:
 
 == Skills you will develop
 
-*Technical skills:*
-
 * ROSA cluster architecture and AWS service integration
-* OpenShift Logging 6.x configuration with Loki and CloudWatch
-* AWS IAM trust policies and STS credential management
-* Kubernetes service account configuration for cloud provider integration
-* Secrets management using CSI drivers and external secret stores
+* OpenShift Logging 6.x with Loki and CloudWatch
+* AWS IAM trust policies, STS credential management, and IRSA
+* Secrets management using CSI drivers and AWS Secrets Manager
+* Least-privilege access controls and compliance for regulated workloads
 * Cloud-native application deployment with security best practices
-
-*Security skills:*
-
-* Implementing least-privilege access controls
-* Configuring audit logging and centralized monitoring
-* Eliminating credential exposure risks
-* Applying compliance controls for regulated workloads
 
 == Workshop structure
 
@@ -110,30 +97,31 @@ By the end of this workshop, you will have:
 * Amazon Cognito integration for enterprise SSO authentication
 * Production-ready security patterns for cloud-native applications
 
-== Business value proposition
+== Business value
 
-Organizations implementing Red Hat OpenShift cloud services achieve significant measurable business value:
+Organizations implementing Red Hat OpenShift cloud services achieve measurable business outcomes:
 
-* *468% ROI over 3 years* with $4.08M net present value for composite organizations^1^
-* *70% shorter application development cycle* through managed OpenShift platform^1^
-* *20% of developer time recaptured* due to reduced infrastructure maintenance requirements^1^
-* *90% of organizations experienced Kubernetes security incidents* in the past year, highlighting the critical need for defense-in-depth security^2^
-* *67% delayed application deployment* due to security concerns, emphasizing the importance of integrated security^2^
+*Financial impact:*
+
+* *468% ROI over 3 years* with $4.08M net present value^1^
+* *70% shorter application development cycle* through managed OpenShift^1^
+* *20% of developer time recaptured* from reduced infrastructure maintenance^1^
+
+*Security impact:*
+
+* *90% of organizations experienced Kubernetes security incidents* in the past year^2^
+* *67% delayed application deployment* due to security concerns^2^
+* *46% experienced revenue or customer loss* from security incidents^2^
+
+*What this workshop delivers:*
+
+* Eliminate static credentials through IRSA to reduce credential-related risks
+* Streamline SOC 2, PCI DSS, and HIPAA compliance with centralized CloudWatch logging
+* Reduce infrastructure overhead with managed OpenShift control plane
 
 ^1^ link:https://www.redhat.com/en/resources/economic-impact-of-cloud-service-analyst-material[Forrester Total Economic Impact of Red Hat OpenShift Cloud Services, March 2024^]
 
 ^2^ link:https://www.redhat.com/en/engage/state-kubernetes-security-report-2024[Red Hat State of Kubernetes Security Report 2024^]
-
-== Real-world impact
-
-Organizations across industries report significant business outcomes from implementing comprehensive Kubernetes security:
-
-* *Security incident prevention*: Eliminating static credentials through IAM Roles for Service Accounts (IRSA) reduces credential-related security risks
-* *Compliance acceleration*: Integrated audit logging with AWS CloudWatch streamlines SOC 2, PCI DSS, and HIPAA compliance processes
-* *Operational efficiency*: Managed OpenShift control plane reduces infrastructure management overhead and improves reliability
-* *Financial impact*: 46% of organizations experienced revenue or customer loss due to security incidents^1^, making proactive security essential
-
-^1^ link:https://www.redhat.com/en/engage/state-kubernetes-security-report-2024[Red Hat State of Kubernetes Security Report 2024^]
 
 == Who this workshop is for
 
@@ -147,10 +135,4 @@ This workshop is designed for:
 
 == Workshop format
 
-This is a hands-on, self-paced workshop where you will:
-
-* Work with a real ROSA cluster deployed in AWS
-* Execute commands and configurations in a live environment
-* Deploy and secure a cloud-native application with AWS service integration
-* Implement enterprise security patterns used in production environments
-* Learn through practical exercises with immediate feedback
+This is a hands-on, self-paced workshop where you work with a real ROSA cluster in AWS, deploy a cloud-native application with AWS service integration, and implement production-ready security patterns through practical exercises.
