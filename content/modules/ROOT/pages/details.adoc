@@ -23,7 +23,8 @@ Your workshop environment includes:
 
 * *Pre-deployed ROSA cluster* - A fully managed Red Hat OpenShift cluster running on AWS
 * *AWS account access* - Credentials and access to required AWS services
-* *Bastion host* - Terminal access for running commands
+* *Integrated web terminal* - Built-in terminal in the Showroom interface for running all workshop commands
+* *Bastion host* - Pre-configured Linux host with terminal access
 * *Pre-installed tools*:
 ** ROSA CLI (`rosa`)
 ** OpenShift CLI (`oc`)
@@ -110,16 +111,11 @@ You will work with these OpenShift operators and components:
 
 == Technical requirements
 
-=== Network access
-
-* Internet connectivity required for AWS and Red Hat services
-* OpenShift console access via HTTPS
-* Terminal/SSH access to bastion host
-
 === Browser compatibility
 
-* Modern web browser for OpenShift web console
-* Recommended: Chrome, Firefox, Edge, Safari (latest versions)
+* Modern web browser required (Chrome, Firefox, Edge, Safari - latest versions)
+* All workshop commands run in the integrated web terminal - no SSH client needed
+* Internet connectivity required for AWS and Red Hat services
 
 == Getting started
 
