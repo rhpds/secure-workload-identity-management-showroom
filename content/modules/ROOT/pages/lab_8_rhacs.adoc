@@ -14,7 +14,7 @@ By the end of this lab, you will be able to:
 
 == Value proposition
 
-*For sales engineers*: This lab demonstrates RHACS as a comprehensive Kubernetes security platform that consolidates vulnerability scanning, compliance reporting, network visualization, and runtime threat detection into a single solution. Use this to show how RHACS eliminates the need for multiple point security tools.
+*For field teams*: This lab demonstrates RHACS as a comprehensive Kubernetes security platform that consolidates vulnerability scanning, compliance reporting, network visualization, and runtime threat detection into a single solution. Use this to show how RHACS eliminates the need for multiple point security tools.
 
 *Customer proof points*:
 

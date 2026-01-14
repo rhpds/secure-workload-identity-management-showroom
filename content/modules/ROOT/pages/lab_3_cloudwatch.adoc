@@ -13,7 +13,7 @@ By the end of this lab, you will be able to:
 
 == Value proposition
 
-*For sales engineers*: This lab demonstrates ROSA's enterprise observability capabilities by integrating with AWS CloudWatch, the logging platform customers already use. Use this to show how ROSA enhances existing AWS investments rather than requiring new tooling.
+*For field teams*: This lab demonstrates ROSA's enterprise observability capabilities by integrating with AWS CloudWatch, the logging platform customers already use. Use this to show how ROSA enhances existing AWS investments rather than requiring new tooling.
 
 *Customer proof points*:
 

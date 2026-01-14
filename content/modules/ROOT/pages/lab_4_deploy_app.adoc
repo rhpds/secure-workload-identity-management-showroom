@@ -13,7 +13,7 @@ By the end of this lab, you will be able to:
 
 == Value proposition
 
-*For sales engineers*: This lab demonstrates ROSA's most critical security capability – eliminating static credentials through IRSA. This is the #1 security concern customers raise about Kubernetes-AWS integration. Use this to show how ROSA solves credential management better than self-managed Kubernetes.
+*For field teams*: This lab demonstrates ROSA's most critical security capability – eliminating static credentials through IRSA. This is the #1 security concern customers raise about Kubernetes-AWS integration. Use this to show how ROSA solves credential management better than self-managed Kubernetes.
 
 *Customer proof points*:
 

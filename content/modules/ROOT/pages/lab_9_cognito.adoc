@@ -13,7 +13,7 @@ By the end of this lab, you will be able to:
 
 == Value proposition
 
-*For sales engineers*: This lab demonstrates ROSA's seamless integration with AWS Cognito for enterprise SSO, eliminating the operational overhead of managing separate identity systems. Use this to show how ROSA fits naturally into AWS-first enterprise architectures.
+*For field teams*: This lab demonstrates ROSA's seamless integration with AWS Cognito for enterprise SSO, eliminating the operational overhead of managing separate identity systems. Use this to show how ROSA fits naturally into AWS-first enterprise architectures.
 
 *Customer proof points*:
 

@@ -13,7 +13,7 @@ By the end of this lab, you will be able to:
 
 == Value proposition
 
-*For sales engineers*: This lab demonstrates RHACS's ability to detect and prevent the Log4Shell vulnerability, one of the most critical security threats in recent history. Use this to show how RHACS would have protected customers from this widespread attack that affected thousands of organizations.
+*For field teams*: This lab demonstrates RHACS's ability to detect and prevent the Log4Shell vulnerability, one of the most critical security threats in recent history. Use this to show how RHACS would have protected customers from this widespread attack that affected thousands of organizations.
 
 *Customer proof points*:
 

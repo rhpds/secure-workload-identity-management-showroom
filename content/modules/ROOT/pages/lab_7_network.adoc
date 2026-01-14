@@ -13,7 +13,7 @@ By the end of this lab, you will be able to:
 
 == Value proposition
 
-*For sales engineers*: This lab demonstrates ROSA's native Kubernetes NetworkPolicy support for implementing zero-trust networking, a critical security requirement for regulated industries. Use this to show how ROSA enables microsegmentation without additional networking products.
+*For field teams*: This lab demonstrates ROSA's native Kubernetes NetworkPolicy support for implementing zero-trust networking, a critical security requirement for regulated industries. Use this to show how ROSA enables microsegmentation without additional networking products.
 
 *Customer proof points*:
 

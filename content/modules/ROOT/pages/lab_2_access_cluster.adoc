@@ -14,7 +14,7 @@ By the end of this lab, you will be able to:
 
 == Value proposition
 
-*For sales engineers*: This lab demonstrates ROSA's flexible authentication options, addressing both immediate demo needs (local auth) and production requirements (external identity providers). Use this to show how ROSA accommodates different deployment stages and enterprise identity integration.
+*For field teams*: This lab demonstrates ROSA's flexible authentication options, addressing both immediate demo needs (local auth) and production requirements (external identity providers). Use this to show how ROSA accommodates different deployment stages and enterprise identity integration.
 
 *Customer proof points*:
 

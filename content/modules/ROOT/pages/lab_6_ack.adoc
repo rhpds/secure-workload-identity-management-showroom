@@ -13,7 +13,7 @@ By the end of this lab, you will be able to:
 
 == Value proposition
 
-*For sales engineers*: This lab demonstrates ROSA's unique advantage of managing AWS infrastructure directly from Kubernetes, enabling true infrastructure-as-code through GitOps workflows. This is a key differentiator for customers already invested in AWS services.
+*For field teams*: This lab demonstrates ROSA's unique advantage of managing AWS infrastructure directly from Kubernetes, enabling true infrastructure-as-code through GitOps workflows. This is a key differentiator for customers already invested in AWS services.
 
 *Customer proof points*:
 
