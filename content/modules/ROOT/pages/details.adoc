@@ -15,17 +15,7 @@ Before starting this workshop, you should have:
 
 *Estimated total time:* 120 minutes (2 hours)
 
-Individual lab durations:
-- Lab 1: 10 minutes
-- Lab 2: 10 minutes
-- Lab 3: 15 minutes
-- Lab 4: 20 minutes
-- Lab 5: 10 minutes
-- Lab 6: 10 minutes
-- Lab 7: 10 minutes
-- Lab 8: 15 minutes
-- Lab 9: 10 minutes
-- Lab 10: 10 minutes
+For individual lab durations and detailed workshop structure, see xref:overview.adoc[Workshop Overview].
 
 == Environment information
 
@@ -130,86 +120,19 @@ You will work with these OpenShift operators and components:
 * *Secrets Store CSI Driver* - External secrets mounting
 * *Source-to-Image (S2I)* - Container image building
 
-== What to expect
-
-=== Hands-on learning approach
-
-* *Execute real commands* - You'll run actual commands against a live ROSA cluster
-* *See immediate results* - Each step produces visible outcomes
-* *Build progressively* - Each lab builds on previous labs
-* *Enterprise patterns* - Learn production-ready security practices
-
-=== Workshop flow
-
-1. *Environment validation* - Verify all tools and access are ready
-2. *Cluster access* - Authenticate and explore your ROSA cluster
-3. *Logging setup* - Configure enterprise observability
-4. *Application deployment* - Deploy a cloud-native app with secure AWS integration
-5. *Secrets management* - Implement external secret store integration
-
-=== Support and troubleshooting
-
-* *Self-paced* - Work at your own speed
-* *Verification commands* - Each lab includes commands to verify success
-* *Expected outputs* - Sample outputs help you confirm correct execution
-* *Troubleshooting tips* - Common issues and solutions provided
-* *Lab instructors* - Available to assist if you encounter issues
-
 == Technical requirements
 
 === Network access
 
-* *Internet connectivity* required for AWS and Red Hat services
-* *OpenShift console access* via HTTPS
-* *Terminal/SSH access* to bastion host
+* Internet connectivity required for AWS and Red Hat services
+* OpenShift console access via HTTPS
+* Terminal/SSH access to bastion host
 
 === Browser compatibility
 
 * Modern web browser for OpenShift web console
 * Recommended: Chrome, Firefox, Edge, Safari (latest versions)
 
-=== Skills assessment
-
-*Beginner level:*
-- Workshop provides detailed step-by-step instructions
-- Basic Linux command line knowledge helpful
-- No prior ROSA or OpenShift experience required
-
-*Intermediate/Advanced level:*
-- Can move through labs more quickly
-- Understand the "why" behind each security pattern
-- Can adapt patterns for your own environments
-
-== After the workshop
-
-=== What you'll be able to do
-
-* Deploy ROSA clusters with integrated AWS security services
-* Implement defense-in-depth security for containerized workloads
-* Configure enterprise observability and compliance controls
-* Eliminate static credentials using IRSA
-* Integrate external secret management
-* Apply these patterns in your production environments
-
-=== Next steps
-
-After completing this workshop, you can:
-
-* Implement these patterns in your organization
-* Explore advanced ROSA security features (RHACS, Network Policies)
-* Configure multi-cluster deployments
-* Integrate with existing enterprise systems
-* Achieve compliance certifications (SOC 2, PCI DSS, HIPAA)
-
-=== Additional resources
-
-* link:https://docs.openshift.com/rosa/welcome/index.html[ROSA Documentation^]
-* link:https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift^]
-* link:https://aws.amazon.com/rosa/[AWS ROSA Product Page^]
-* link:https://github.com/rh-mobb[Red Hat MOBB GitHub^]
-
 == Getting started
 
-When you're ready to begin, proceed to *Lab 1: Explore your ROSA environment* where you'll validate your workshop environment and prepare for hands-on learning.
-
-Let's build a secure, enterprise-grade container platform together!
+When you're ready to begin, proceed to xref:lab_1_explore_rosa.adoc[Lab 1: Explore your ROSA environment] to start the workshop.
