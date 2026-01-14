@@ -132,7 +132,3 @@ You will work with these OpenShift operators and components:
 
 * Modern web browser for OpenShift web console
 * Recommended: Chrome, Firefox, Edge, Safari (latest versions)
-
-== Getting started
-
-When you're ready to begin, proceed to xref:lab_1_explore_rosa.adoc[Lab 1: Explore your ROSA environment] to start the workshop.
