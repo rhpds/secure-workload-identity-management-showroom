@@ -31,7 +31,17 @@ This includes an Amazon Web Services (AWS) account, and many other supporting re
 
 ROSA is enabled on the AWS account used for this lab - and the ROSA CLI as well as AWS CLI tools are installed and configured on your bastion VM.
 
-**Bastion Host Access:**
+=== How to run commands
+
+You have two options for running workshop commands:
+
+*Option 1: Use the integrated web terminal (Recommended)*
+
+The Showroom interface includes a built-in terminal (visible on the right side of your browser). All commands can be executed directly in this terminal without any additional setup.
+
+*Option 2: SSH to the bastion host*
+
+Alternatively, you can SSH to the bastion host using your own terminal:
 
 [cols="1,2"]
 |===
@@ -43,7 +53,7 @@ ROSA is enabled on the AWS account used for this lab - and the ROSA CLI as well 
 
 [NOTE]
 ====
-All commands in this workshop should be run on the bastion host. Use the SSH credentials above to connect if not already connected.
+Both the integrated terminal and SSH connection use the same bastion host with identical pre-installed tools and configuration.
 ====
 
 === Validate installed tools
