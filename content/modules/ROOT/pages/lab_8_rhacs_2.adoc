@@ -1,6 +1,41 @@
-== RHACS Log4Shell Vulnerability Quick Lab
+= Lab 9: RHACS Log4Shell Vulnerability Detection and Prevention
+
+== Learning objectives
+
+By the end of this lab, you will be able to:
+
+* Deploy applications with known vulnerabilities (Log4Shell CVE-2021-44228) for testing
+* Use RHACS to scan and detect critical vulnerabilities in running containers
+* Configure RHACS policies to block vulnerable deployments at build and deploy time
+* Understand RHACS violation lifecycle across build, deploy, and runtime stages
+* Implement policy enforcement to prevent high-severity CVEs from reaching production
+* Review security policy violations and take remediation actions
+
+== Value proposition
+
+*For field teams*: This lab demonstrates RHACS's ability to detect and prevent the Log4Shell vulnerability, one of the most critical security threats in recent history. Use this to show how RHACS would have protected customers from this widespread attack that affected thousands of organizations.
+
+*Customer proof points*:
+
+* *Zero-day protection*: RHACS detected Log4Shell (CVE-2021-44228) immediately upon disclosure, protecting customers before exploits emerged
+* *Multi-stage prevention*: Block vulnerable images at build time, deployment time, and runtime for defense-in-depth
+* *Business continuity*: Prevent security incidents that caused average downtime of 21 days and $4.35M in costs for affected organizations^1^
+* *Rapid response*: Policy-based enforcement allows security teams to block new vulnerabilities across all clusters within minutes
+
+^1^ https://www.ibm.com/security/data-breach[IBM Cost of a Data Breach Report^] - Average breach costs
+
+== Introduction
 
 This lab shows how to block workloads with Log4Shell vulnerabilities using Red Hat Advanced Cluster Security (RHACS).
+
+**RHACS Console Credentials:**
+
+[cols="1,2"]
+|===
+| *RHACS Console URL* | `{acs_route}`
+| *Username* | `{acs_portal_username}`
+| *Password* | `{acs_portal_password}`
+|===
 
 .Goals
 * Block the vulnerable deployment of a log4shell application
@@ -223,3 +258,29 @@ In case of emergency, add the annotation {"admission.stackrox.io/break-glass": "
 ----
 
 Congrats! Moving forward no applications will be able to deploy with the vulnerable Log4j version!
+
+== Summary
+
+Excellent work! You have successfully used RHACS to detect, prevent, and remediate the Log4Shell vulnerability.
+
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Deployed an application with the Log4Shell vulnerability (CVE-2021-44228)
+* ✅ Scanned container images to detect critical vulnerabilities using RHACS
+* ✅ Reviewed vulnerability details in the RHACS console
+* ✅ Created and enforced security policies to block vulnerable deployments
+* ✅ Verified policy enforcement across build, deploy, and runtime stages
+* ✅ Reviewed violations and understood remediation workflows
+
+=== Key takeaways for customer conversations
+
+* *Zero-day readiness*: RHACS detects new vulnerabilities immediately upon disclosure, before exploits are weaponized
+* *Multi-stage enforcement*: Policies block vulnerabilities at build, deploy, and runtime for comprehensive protection
+* *Business impact*: Prevented a vulnerability that affected 93% of cloud environments and caused billions in damages globally
+* *Emergency override*: Break-glass annotation allows controlled deployments during incident response
+
+=== Next steps
+
+In the final lab, you will integrate ROSA with Amazon Cognito for enterprise identity provider (IdP) authentication, enabling single sign-on (SSO) for your cluster.

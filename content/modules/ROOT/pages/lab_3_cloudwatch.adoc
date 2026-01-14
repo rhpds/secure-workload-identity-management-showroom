@@ -1,6 +1,32 @@
+= Lab 3: Configure CloudWatch logging for ROSA
+
+== Learning objectives
+
+By the end of this lab, you will be able to:
+
+* Understand OpenShift Logging 6.x architecture with Loki Operator and Cluster Observability Operator
+* Configure AWS IAM roles and policies for secure S3 and CloudWatch access
+* Deploy and configure Loki stack for centralized log storage
+* Implement ClusterLogForwarder for multi-destination log routing
+* Integrate ROSA audit, infrastructure, and application logs with Amazon CloudWatch
+* Visualize logs using OpenShift console UI plugin
+
+== Value proposition
+
+*For field teams*: This lab demonstrates ROSA's enterprise observability capabilities by integrating with AWS CloudWatch, the logging platform customers already use. Use this to show how ROSA enhances existing AWS investments rather than requiring new tooling.
+
+*Customer proof points*:
+
+* *Compliance acceleration*: Centralized audit logging streamlines SOC 2, PCI DSS, and HIPAA compliance processes; 26% of organizations report audit failures, highlighting the importance of proper logging infrastructure^1^
+* *Unified observability*: Single CloudWatch dashboard for all AWS services plus ROSA workloads reduces Mean Time To Resolution (MTTR) through centralized log correlation
+* *Cost optimization*: Loki's efficient columnar storage architecture reduces logging infrastructure costs while maintaining CloudWatch integration for enterprise analytics
+* *Security posture*: Audit trail preservation meets regulatory requirements for log retention (typically 1-7 years depending on industry and regulation)
+
+^1^ link:https://www.redhat.com/en/engage/state-kubernetes-security-report-2024[Red Hat State of Kubernetes Security Report 2024^] - 26% reported audit failures
+
 == Introduction
 
-ROSA HCP clusters now only support openshift Logging 6.x and above. 
+ROSA HCP clusters now only support OpenShift Logging 6.x and above. 
 
 This lab aims to provide a step-by-step guide for implementing logging 6.x on ROSA HCP, setting up a log store with Loki with S3 and/or log forwarding to AWS CloudWatch.
 
@@ -501,6 +527,18 @@ EOF
 ----
 
 . Verify CW Log groups by logging into AWS, selecting the region and opening Cloudwatch dashboard.
++
+**AWS Console Credentials:**
++
+[cols="1,2"]
+|===
+| *AWS Console URL* | `{aws_web_console_url}`
+| *Username* | `{aws_web_console_user_name}`
+| *Password* | `{aws_web_console_password}`
+| *Region* | `{aws_default_region}` (typically us-east-2)
+|===
++
+After logging in, navigate to CloudWatch → Log groups to view the ROSA logs.
 
 
 Congratulations!
@@ -580,6 +618,17 @@ EOF
 ----
 
 . Verify Logging UI plugin Wait until you see the openshift web console refresh request. Once the console is refreshed, expand Observe in the left hand side of the openshift console and go to the log tab.
++
+**OpenShift Web Console Access:**
++
+[cols="1,2"]
+|===
+| *Console URL* | `{rosa_openshift_console_url}`
+| *Username* | `{rosa_openshift_admin_user}`
+| *Password* | `{rosa_openshift_admin_password}`
+|===
++
+Navigate to: *Observe* → *Logs* to view the integrated logging UI.
 
 
 
@@ -592,8 +641,39 @@ EOF
 
 == Summary
 
-Here you learned:
+Excellent work! You have successfully implemented enterprise-grade centralized logging for your ROSA cluster.
 
-* Create an AWS IAM trust policy and role to grant your cluster access to Amazon CloudWatch
-* Install the OpenShift Cluster Logging Operator in your cluster
-* Configure `ClusterLogForwarder` and `ClusterLogging` objects to forward infrastructure, audit and application logs to Amazon CloudWatch
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Deployed Loki Operator for efficient log storage (demonstrating modern observability architecture)
+* ✅ Configured S3 bucket for Loki storage with IAM roles (showing secure AWS integration)
+* ✅ Installed OpenShift Logging Operator 6.x (highlighting ROSA's managed operator lifecycle)
+* ✅ Created service accounts with least-privilege permissions (proving security best practices)
+* ✅ Configured ClusterLogForwarder for multi-destination routing (demonstrating flexible log pipelines)
+* ✅ Integrated ROSA logs with Amazon CloudWatch (showing native AWS service integration)
+* ✅ Deployed Cluster Observability Operator UI plugin (highlighting seamless console integration)
+
+=== Key takeaways for customer conversations
+
+* *Multi-destination logging*: ROSA can forward logs to both Loki (cost-efficient columnar storage) and CloudWatch (enterprise analytics) simultaneously
+* *AWS-native integration*: Uses AWS STS and IAM roles instead of static credentials, reducing security risk
+* *Compliance-ready*: Audit, infrastructure, and application logs automatically captured and preserved for regulatory requirements
+* *Unified observability*: CloudWatch integration enables correlation between ROSA workloads and AWS infrastructure events
+* *Cost optimization*: Loki's efficient columnar storage architecture reduces logging infrastructure costs while maintaining CloudWatch integration
+
+=== Value demonstration for prospects
+
+When showing this to customers, emphasize:
+
+* *Compliance acceleration*: Pre-built audit logging streamlines compliance preparation for SOC 2, PCI DSS, and HIPAA audits
+* *Reduced operational overhead*: Managed Loki Operator eliminates the need to deploy and maintain Elasticsearch clusters
+* *Familiar tooling*: Customers use their existing CloudWatch dashboards, alerts, and access controls without learning new tools
+* *Security by design*: Temporary credentials via AWS STS eliminate long-lived access keys and manual credential rotation processes
+
+=== Next steps
+
+Your ROSA cluster now has enterprise-grade centralized logging configured.
+
+In the next lab, you will deploy a cloud-native application that leverages IAM Roles for Service Accounts (IRSA) to securely access AWS DynamoDB without static credentials.

@@ -1,0 +1,124 @@
+= Workshop overview
+
+== Learning objectives
+
+This hands-on workshop teaches you to implement defense-in-depth security for containerized workloads on Red Hat OpenShift Service on AWS (ROSA). By completing this workshop, you will be able to:
+
+* *Validate ROSA environment readiness* by verifying CLI tools, AWS quotas, and cluster prerequisites for production deployment
+* *Configure secure cluster access* using local admin authentication and OpenShift web console navigation
+* *Implement centralized logging* by integrating ROSA with Amazon CloudWatch using OpenShift Logging 6.x and Loki stack
+* *Eliminate static credentials* by deploying applications with IAM Roles for Service Accounts (IRSA) for AWS service integration
+* *Manage external secrets securely* using AWS Secrets Manager CSI driver to separate sensitive data from application code
+* *Apply defense-in-depth principles* by combining multiple security layers for comprehensive workload protection
+
+== Workshop structure
+
+This workshop consists of 10 hands-on lab modules:
+
+[cols="1,3,1,2", options="header"]
+|===
+| Module | Topic | Duration | Business Value
+
+| *Lab 1*
+| Explore your ROSA environment
+| 10 min
+| Ensure production readiness through environment validation
+
+| *Lab 2*
+| Access your ROSA cluster
+| 10 min
+| Enable secure cluster administration and governance
+
+| *Lab 3*
+| Configure CloudWatch logging
+| 15 min
+| Achieve compliance through centralized audit logging
+
+| *Lab 4*
+| Deploy application with IRSA
+| 20 min
+| Eliminate security risks from static credentials
+
+| *Lab 5*
+| Implement AWS Secrets Manager
+| 10 min
+| Separate secrets from code for enhanced security
+
+| *Lab 6*
+| AWS Controllers for Kubernetes (ACK)
+| 10 min
+| Provision AWS infrastructure using GitOps workflows
+
+| *Lab 7*
+| Network Policies
+| 10 min
+| Implement zero-trust networking and microsegmentation
+
+| *Lab 8*
+| Introduction to RHACS
+| 15 min
+| Comprehensive security platform for vulnerability and compliance
+
+| *Lab 9*
+| RHACS Log4Shell Detection
+| 10 min
+| Detect and prevent critical vulnerabilities at runtime
+
+| *Lab 10*
+| Amazon Cognito Integration
+| 10 min
+| Enterprise SSO for centralized identity management
+|===
+
+*Total workshop time:* 120 minutes (2 hours)
+
+== What you will build
+
+By the end of this workshop, you will have a fully operational ROSA cluster with:
+
+* Centralized logging to Amazon CloudWatch using OpenShift Logging 6.x and Loki
+* A secure Java application (Microsweeper game) using IRSA for DynamoDB, AWS Secrets Manager, and S2I builds
+* AWS infrastructure (S3 buckets) provisioned via AWS Controllers for Kubernetes (ACK)
+* Network Policies for zero-trust networking and microsegmentation
+* RHACS for vulnerability detection and runtime policy enforcement
+* Amazon Cognito for enterprise SSO authentication
+
+== Business value
+
+Organizations implementing Red Hat OpenShift cloud services achieve measurable business outcomes:
+
+*Financial impact:*
+
+* *468% ROI over 3 years* with $4.08M net present value^1^
+* *70% shorter application development cycle* through managed OpenShift^1^
+* *20% of developer time recaptured* from reduced infrastructure maintenance^1^
+
+*Security impact:*
+
+* *90% of organizations experienced Kubernetes security incidents* in the past year^2^
+* *67% delayed application deployment* due to security concerns^2^
+* *46% experienced revenue or customer loss* from security incidents^2^
+
+*What this workshop delivers:*
+
+* Eliminate static credentials through IRSA to reduce credential-related risks
+* Streamline SOC 2, PCI DSS, and HIPAA compliance with centralized CloudWatch logging
+* Reduce infrastructure overhead with managed OpenShift control plane
+
+^1^ link:https://www.redhat.com/en/resources/economic-impact-of-cloud-service-analyst-material[Forrester Total Economic Impact of Red Hat OpenShift Cloud Services, March 2024^]
+
+^2^ link:https://www.redhat.com/en/engage/state-kubernetes-security-report-2024[Red Hat State of Kubernetes Security Report 2024^]
+
+== Who this workshop is for
+
+This workshop is designed for:
+
+* *Platform engineers* building secure, multi-tenant container platforms
+* *DevOps engineers* deploying cloud-native applications with security automation
+* *Cloud architects* designing secure hybrid cloud architectures
+* *Security engineers* implementing compliance controls for containerized workloads
+* *Developers* building applications that leverage AWS services securely
+
+== Workshop format
+
+This is a hands-on, self-paced workshop where you work with a real ROSA cluster in AWS, deploy a cloud-native application with AWS service integration, and implement production-ready security patterns through practical exercises.

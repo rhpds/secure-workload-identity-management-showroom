@@ -1,38 +1,28 @@
 = Defense in Depth: Advanced Security for Container Workloads on ROSA
 
-// --- Introduction and Overview ---
+Welcome to the *Defense in Depth: Advanced Security for Container Workloads on ROSA* workshop!
 
-== Introduction and Lab Overview
+In this hands-on workshop, you'll implement enterprise-grade security for containerized workloads on Red Hat OpenShift Service on AWS (ROSA), gaining practical experience with critical Kubernetes security capabilities.
 
-Welcome to the *Defense in Depth: Advanced Security for Container Workloads on ROSA* Lab.
+== Why this workshop matters
 
-This lab is designed to show you how to enable organizations to build a highly secure, auditable, and operationally efficient application platform on Red Hat OpenShift Service on AWS (ROSA).
+In today's cloud-native landscape, security is paramount. Organizations face increasing pressure to:
 
-=== Who This Workshop Is For
+* Deploy applications faster while maintaining enterprise-grade security
+* Eliminate security vulnerabilities from static credentials and exposed secrets
+* Achieve compliance with industry regulations (PCI DSS, HIPAA, SOC 2, FedRAMP)
+* Reduce operational overhead of managing container platforms
+* Integrate seamlessly with existing AWS services and security tooling
 
-This workshop is aimed at Platform Engineers, DevOps Engineers, Cloud Operations, Architects, and Developers that want to learn about secure application delivery using ROSA.
+This workshop demonstrates how ROSA addresses these challenges through a defense-in-depth security strategy that combines OpenShift's enterprise Kubernetes capabilities with native AWS security services.
 
-=== What to Expect
+== Before you begin
 
-During the workshop, we will take you through a series of hands-on exercises to help you understand some of the core security concepts of modern cloud application platform.
+Please review these pages for complete workshop information:
 
-// --- Learning Objectives ---
+* xref:overview.adoc[Workshop Overview] - Learning objectives, lab structure, and business value
+* xref:details.adoc[Workshop Details] - Prerequisites, credentials, and environment setup
 
-== Learning Objectives
+== Ready to start?
 
-Attendees will gain practical knowledge and skills in the following key areas:
-
-* ROSA architecture and its differentiation from self-managed OpenShift.
-* Integration of ROSA telemetry with Amazon CloudWatch for centralized logging and auditing.
-* Deployment of an application that uses *AWS IAM Roles for Service Accounts* and *AWS STS* to connect to an Amazon DynamoDB table, eliminating static credentials.
-* Usage of *AWS Secrets Manager* with ROSA for externalized configuration and secrets management.
-* Provisioning of AWS resources using *AWS Controllers for Kubernetes (ACK)* directly from ROSA.
-* Application of advanced networking constructs, specifically OpenShift **Network Policies**, for workload microsegmentation.
-* Operationalizing cluster visibility and workload governance using *Red Hat Advanced Cluster Security (RHACS)*.
-* Integration of ROSA with *Amazon Cognito* for federated authentication and user access control.
-
-// --- Conclusion ---
-
-== Conclusion
-
-After completing this workshop, attendees will have a comprehensive understanding of key concepts related to architecting secure modern cloud application platforms and will have gained hands-on experience implementing these vital security controls directly within the lab's provided AWS infrastructure.
+Once you've reviewed the overview and details, proceed to xref:lab_1_explore_rosa.adoc[Lab 1: Explore your ROSA environment] to begin the workshop.

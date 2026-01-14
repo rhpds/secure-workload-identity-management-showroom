@@ -1,0 +1,122 @@
+= Workshop details
+
+== Prerequisites
+
+Before starting this workshop, you should have:
+
+* *Basic understanding of Kubernetes concepts* (pods, deployments, services)
+* *Familiarity with AWS core services* (IAM, EC2, S3)
+* *Experience with command-line tools* (bash, git)
+* *Knowledge of container concepts* and Docker basics
+
+*No prior ROSA experience is required* – we'll guide you through everything step by step.
+
+== Workshop duration
+
+*Estimated total time:* 120 minutes (2 hours)
+
+== Environment information
+
+=== Provided resources
+
+Your workshop environment includes:
+
+* *Pre-deployed ROSA cluster* - A fully managed Red Hat OpenShift cluster running on AWS
+* *AWS account access* - Credentials and access to required AWS services
+* *Integrated web terminal* - Built-in terminal in the Showroom interface for running all workshop commands
+* *Bastion host* - Pre-configured Linux host with terminal access
+* *Pre-installed tools*:
+** ROSA CLI (`rosa`)
+** OpenShift CLI (`oc`)
+** AWS CLI (`aws`)
+** Git, Helm, and other development tools
+
+=== Access credentials
+
+==== Bastion host
+
+[cols="2,3",options="header"]
+|===
+| Description | Value
+
+| SSH command | {ssh_command}
+| Username | {ssh_username}
+| Password | {ssh_password}
+| Hostname | {targethost}
+|===
+
+==== OpenShift cluster
+
+[cols="2,3",options="header"]
+|===
+| Description | Value
+
+| Console URL | {rosa_openshift_console_url}
+| Admin username | {rosa_openshift_admin_user}
+| Admin password | {rosa_openshift_admin_password}
+| API URL | {rosa_openshift_api_url}
+|===
+
+==== AWS console
+
+[cols="2,3",options="header"]
+|===
+| Description | Value
+
+| Console URL | {aws_web_console_url}
+| Username | {aws_web_console_user_name}
+| Password | {aws_web_console_password}
+|===
+
+==== RHACS console (Labs 8-9)
+
+[cols="2,3",options="header"]
+|===
+| Description | Value
+
+| Console URL | {acs_route}
+| Username | {acs_portal_username}
+| Password | {acs_portal_password}
+|===
+
+==== Workshop identifier
+
+[cols="2,3",options="header"]
+|===
+| Description | Value
+
+| Workshop ID | {guid}
+|===
+
+=== AWS services used
+
+This workshop integrates with the following AWS services:
+
+* *Amazon CloudWatch* - Centralized logging and monitoring
+* *AWS IAM* - Identity and access management
+* *AWS STS* - Security Token Service for temporary credentials
+* *Amazon S3* - Object storage for Loki log storage
+* *Amazon DynamoDB* - NoSQL database for application data
+* *AWS Secrets Manager* - External secrets management
+
+=== OpenShift components used
+
+You will work with these OpenShift operators and components:
+
+* *OpenShift Logging 6.x* - Log collection and forwarding
+* *Loki Operator* - Efficient log storage backend
+* *Cluster Observability Operator* - Logging UI integration
+* *Secrets Store CSI Driver* - External secrets mounting
+* *Source-to-Image (S2I)* - Container image building
+
+== Technical requirements
+
+=== Browser compatibility
+
+* Modern web browser required (Chrome, Firefox, Edge, Safari - latest versions)
+* All workshop commands run in the integrated web terminal - no SSH client needed
+* Internet connectivity required for AWS and Red Hat services
+
+== Getting started
+
+When you're ready to begin, proceed to xref:lab_1_explore_rosa.adoc[Lab 1: Explore your ROSA environment] to start the workshop.

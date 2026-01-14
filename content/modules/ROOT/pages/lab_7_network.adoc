@@ -1,3 +1,29 @@
+= Lab 7: Network Policies on ROSA
+
+== Learning objectives
+
+By the end of this lab, you will be able to:
+
+* Understand Kubernetes NetworkPolicy architecture and zero-trust networking principles
+* Implement ingress rules to restrict pod-to-pod communication across namespaces
+* Configure namespace selectors and pod selectors for fine-grained access control
+* Test and verify network policy enforcement using CLI tools
+* Apply defense-in-depth security through network segmentation
+* Implement production-ready network isolation patterns
+
+== Value proposition
+
+*For field teams*: This lab demonstrates ROSA's native Kubernetes NetworkPolicy support for implementing zero-trust networking, a critical security requirement for regulated industries. Use this to show how ROSA enables microsegmentation without additional networking products.
+
+*Customer proof points*:
+
+* *Zero-trust networking*: Implement "deny by default" network policies that align with zero-trust security frameworks
+* *Compliance requirement*: NetworkPolicies satisfy PCI DSS 1.3 (network segmentation) and NIST SP 800-53 SC-7 (boundary protection) requirements
+* *Reduced attack surface*: Lateral movement prevention limits blast radius of security incidents, addressing 67% of breaches involving lateral movement^1^
+* *No additional cost*: Native Kubernetes capability with no licensing fees for network security products
+
+^1^ https://www.verizon.com/business/resources/reports/dbir/[Verizon Data Breach Investigations Report^] - Lateral movement in breaches
+
 == Introduction
 
 NetworkPolicies are used to control and secure communication between pods within a cluster. They provide a declarative approach to define and enforce network traffic rules, allowing you to specify the desired network behavior. By using NetworkPolicies, you can enhance the overall security of your applications by isolating and segmenting different components within the cluster. These policies enable fine-grained control over network access, allowing you to define ingress and egress rules based on criteria such as IP addresses, ports, and pod selectors.
@@ -220,8 +246,25 @@ For information on setting default network policies for new projects you can rea
 
 == Summary
 
-Here's what you learned:
+Excellent work! You have successfully implemented NetworkPolicies for zero-trust networking on ROSA.
 
-* Network Policies are a powerful way to apply zero-trust networking patterns.
-* Access to pods can be restricted to other Pods, Namespaces, or other labels.
-* Access can be completely denied, allowed, or set to particular ports or services.
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Created test pods across multiple namespaces for network policy validation
+* ✅ Implemented ingress NetworkPolicy to restrict access to OpenShift Ingress only
+* ✅ Configured namespace and pod selectors for fine-grained access control
+* ✅ Tested network policy enforcement using pod-to-pod communication
+* ✅ Applied selective access rules to allow specific cross-namespace communication
+
+=== Key takeaways for customer conversations
+
+* *Zero-trust networking*: NetworkPolicies implement "deny by default" patterns aligned with zero-trust security frameworks
+* *Compliance wins*: Satisfies PCI DSS 1.3 (network segmentation) and NIST SP 800-53 SC-7 (boundary protection) requirements
+* *Lateral movement prevention*: Network segmentation reduces attack surface by limiting pod-to-pod communication
+* *Production patterns*: Default network policies can be applied to all new projects through project templates
+
+=== Next steps
+
+In the next lab, you will explore Red Hat Advanced Cluster Security (RHACS) for runtime threat detection, vulnerability management, and policy enforcement.

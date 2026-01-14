@@ -1,19 +1,22 @@
-*Introduction*
+*Workshop Introduction*
 
-* xref:lab_2_access_cluster.adoc[Access your ROSA cluster]
-* xref:lab_3_cloudwatch.adoc[Configure Red Hat OpenShift Logging with AWS Cloudwatch]
-* xref:lab_4_deploy_app.adoc[Deploy an application with AWS Database]
-* xref:lab_5_secrets_mgr.adoc[Using AWS Secrets Manager CSI on Red Hat OpenShift Service on AWS with STS]
-* xref:lab_6_ack.adoc[Using AWS Controllers for Kubernetes on Red Hat OpenShift Service on AWS]
-* xref:lab_7_network.adoc[Network policies on Red Hat OpenShift Service on AWS]
-* xref:lab_8_rhacs.adoc[Introduction to RHACS]
-* xref:lab_8_rhacs_2.adoc[RHACS - Log4Shell deployment]
-* xref:lab_9_cognito.adoc[Integrating ROSA cluster with Amazon Cognito]
+* xref:index.adoc[Introduction]
+* xref:overview.adoc[Overview]
+* xref:details.adoc[Details]
 
+*Labs*
 
+* xref:lab_1_explore_rosa.adoc[Lab 1: Explore your ROSA environment]
+* xref:lab_2_access_cluster.adoc[Lab 2: Access your ROSA cluster]
+* xref:lab_3_cloudwatch.adoc[Lab 3: Configure CloudWatch logging]
+* xref:lab_4_deploy_app.adoc[Lab 4: Deploy application with IRSA]
+* xref:lab_5_secrets_mgr.adoc[Lab 5: Implement AWS Secrets Manager]
+* xref:lab_6_ack.adoc[Lab 6: Using AWS Controllers for Kubernetes]
+* xref:lab_7_network.adoc[Lab 7: Network policies on ROSA]
+* xref:lab_8_rhacs.adoc[Lab 8: Introduction to RHACS]
+* xref:lab_8_rhacs_2.adoc[Lab 9: RHACS - Log4Shell deployment]
+* xref:lab_9_cognito.adoc[Lab 10: Integrating ROSA with Amazon Cognito]
 
+*Conclusion*
 
-
-*Conclusion and What's Next*
-
-* xref:conclusion.adoc[Conclusion & What's Next]
+* xref:conclusion.adoc[Conclusion and next steps]

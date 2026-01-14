@@ -1,4 +1,28 @@
-== Using AWS Controllers for Kubernetes on Red Hat OpenShift Service on AWS
+= Lab 6: Using AWS Controllers for Kubernetes on ROSA
+
+== Learning objectives
+
+By the end of this lab, you will be able to:
+
+* Understand AWS Controllers for Kubernetes (ACK) architecture and benefits
+* Install and configure ACK Operators from the OpenShift software catalog
+* Create IAM trust policies and roles for ACK service account integration
+* Deploy AWS resources (S3 buckets) directly from Kubernetes manifests using ACK
+* Verify AWS resource creation through ACK Operators
+* Implement GitOps patterns for AWS infrastructure provisioning
+
+== Value proposition
+
+*For field teams*: This lab demonstrates ROSA's unique advantage of managing AWS infrastructure directly from Kubernetes, enabling true infrastructure-as-code through GitOps workflows. This is a key differentiator for customers already invested in AWS services.
+
+*Customer proof points*:
+
+* *Infrastructure as Code*: Provision AWS resources using native Kubernetes manifests, eliminating the need for external infrastructure tooling
+* *GitOps-native*: Manage AWS infrastructure through the same GitOps workflows as application deployments, improving consistency and reducing operational overhead
+* *Reduced complexity*: Eliminate the gap between application teams and infrastructure teams by managing everything through Kubernetes
+* *Cost optimization*: Use AWS managed services without running supporting infrastructure in-cluster, reducing compute costs
+
+== Introduction
 
 AWS Controllers for Kubernetes (ACK) lets you define and use AWS service resources directly from Red Hat OpenShift Service on AWS. With ACK, you can take advantage of AWS-managed services for your applications without needing to define resources outside of the cluster or run services that provide supporting capabilities such as databases or message queues within the cluster.
 
@@ -186,6 +210,31 @@ aws s3 ls | grep ${CLUSTER_NAME}-bucket
 ----
 2025-10-04 14:51:45 mrmc-test-maz-bucket
 ----
+
+== Summary
+
+Excellent work! You have successfully deployed and configured AWS Controllers for Kubernetes (ACK) on ROSA.
+
+=== What you accomplished
+
+In this lab, you:
+
+* ✅ Installed the ACK S3 Operator from the OpenShift software catalog
+* ✅ Created IAM trust policies for secure ACK service account integration
+* ✅ Configured IAM roles with least-privilege AWS permissions
+* ✅ Deployed AWS S3 buckets using native Kubernetes manifests
+* ✅ Verified AWS resource creation through ACK automation
+
+=== Key takeaways for customer conversations
+
+* *Infrastructure as Code*: AWS resources managed through Kubernetes manifests, enabling GitOps workflows
+* *No external tooling*: Eliminate Terraform, CloudFormation, or AWS CLI scripts for infrastructure provisioning
+* *Unified platform*: Application and infrastructure teams use the same Kubernetes-native workflows
+* *AWS service integration*: Direct access to 20+ AWS services (S3, RDS, DynamoDB, SQS, SNS, etc.) through ACK Operators
+
+=== Next steps
+
+In the next lab, you will implement Network Policies to secure pod-to-pod communication and enforce zero-trust networking patterns on ROSA.
 
 
 
