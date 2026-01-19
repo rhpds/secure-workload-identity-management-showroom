@@ -37,14 +37,14 @@ In this tutorial lets deploy the ACK S3 Operator.
 [source,sh,role=execute]
 ----
 export CLUSTER_NAME=$(oc get infrastructure cluster -o=jsonpath="{.status.infrastructureName}"  | sed 's/-[a-z0-9]\{5\}$//')
-export REGION=$(rosa describe cluster -c ${ROSA_CLUSTER_NAME} --output json | jq -r .region.id)
+export REGION=$(rosa describe cluster -c ${CLUSTER_NAME} --output json | jq -r .region.id)
 export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io cluster -o json | jq -r .spec.serviceAccountIssuer | sed  's|^https://||')
 export AWS_ACCOUNT_ID=`aws sts get-caller-identity --query Account --output text`
 export ACK_SERVICE=s3
 export ACK_SERVICE_ACCOUNT=ack-${ACK_SERVICE}-controller
 export POLICY_ARN=arn:aws:iam::aws:policy/AmazonS3FullAccess
 export AWS_PAGER=""
-export SCRATCH="/tmp/${ROSA_CLUSTER_NAME}/ack"
+export SCRATCH="/tmp/${CLUSTER_NAME}/ack"
 mkdir -p ${SCRATCH}
 ----
 
@@ -52,7 +52,7 @@ mkdir -p ${SCRATCH}
 +
 [source,sh,role=execute]
 ----
-echo "Cluster: ${ROSA_CLUSTER_NAME}, Region: ${REGION}, OIDC Endpoint: ${OIDC_ENDPOINT}, AWS Account ID: ${AWS_ACCOUNT_ID}"
+echo "Cluster: ${CLUSTER_NAME}, Region: ${REGION}, OIDC Endpoint: ${OIDC_ENDPOINT}, AWS Account ID: ${AWS_ACCOUNT_ID}"
 ----
 
 
@@ -109,7 +109,7 @@ oc new-project ack-system
 +
 [source,sh,role=execute]
 ----
-cat << EOF  "${SCRATCH}/config.txt"
+cat << EOF > "${SCRATCH}/config.txt"
 ACK_ENABLE_DEVELOPMENT_LOGGING=true
 ACK_LOG_LEVEL=debug
 ACK_WATCH_NAMESPACE=
