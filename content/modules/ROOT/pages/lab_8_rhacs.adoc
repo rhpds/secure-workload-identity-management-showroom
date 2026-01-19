@@ -327,11 +327,11 @@ This information includes:
 
 The *Risk tab* is a combination of security configuration management, network detection, runtime information, incident response, and vulnerability management all coming together so that users can gain greater context and prioritize security issues throughout OpenShift and Kubernetes clusters.
 
-image::01-risk-1.png[link=self, window=blank, width=100%]
+image::01-risk-1new.png[link=self, window=blank, width=100%]
 
 In this tab, you can review risk indicators, deployment details, and look at process discoveries such as runtime processes in a container. All of this information is designed to help you gain a greater understanding of the priority of specific workloads in your cluster, as security is not only vulnerability management.
 
-image::01-risk-2.png[link=self, window=blank, width=100%]
+image::01-risk-2new.png[link=self, window=blank, width=100%]
 
 === Platform Configuration
 
