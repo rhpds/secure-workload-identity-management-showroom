@@ -109,7 +109,7 @@ video::01-acs-search.mp4[width=640,opts=autoplay, class="center" ]
 
 NOTE: RHACS maintains a library of searchable assets to help you search faster. They will appear in a drop-down list, and you can click on them to enter them as well. If a specific CVE or deployment cannot be found, please confirm the spelling of the asset name or that it is correctly deployed in the cluster.
 
-You can also search using *REGEX-like capabilities*. Add an *r/* before the search term to find all possibilities. For example, if you search for *Namespace:r/st.*x*, the results include matches from namespace stackrox and stix.
+You can also search using *REGEX-like capabilities*. Add an *r/* before the search term to find all possibilities. For example, if you search for *Namespace:r/micro*, the results include matches from namespace starting with micro.
 
 ---
 
@@ -217,9 +217,9 @@ image::01-network-0.png[link=self, window=blank, width=100%]
 
 NOTE: You will see the following warning message: *This version of ACS is not compatible with AdminNetworkPolicy (ANP) and BaselineAdminNetworkPolicy (BANP) or CNI-specific network resources. If those resources are present in the cluster, isolation labels per deployment and network policies generated might be misrepresented.* RHACS does not support AdminNetworkPolicy (ANP) and BaselineAdminNetworkPolicy (BANP) or CNI-specific network resources. If those resources are present in the cluster, RHACS will not be able to show them in the Network Graph.
 
-> *To see results, sort by Cluster -> Namespace -> Deployment. Try Production + patient-portal*
+> *To see results, sort by Cluster -> Namespace -> Deployment. Select openshift-gitops namespace.*
 
-image::01-network-1.png[link=self, window=blank, width=100%, Dashboard Filter]
+image::01-network-1new.png[link=self, window=blank, width=100%, Dashboard Filter]
 
 The network graph tab allows you to visualize all the network connections in your cluster, look at baseline flows, simulate network policies, manage CIDR blocks, and more.
 
