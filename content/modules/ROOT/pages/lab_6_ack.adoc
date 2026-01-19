@@ -36,7 +36,7 @@ In this tutorial lets deploy the ACK S3 Operator.
 +
 [source,sh,role=execute]
 ----
-export CLUSTER_NAME=$(oc get infrastructure cluster -o=jsonpath="{.status.infrastructureName}"  | sed 's/-[a-z0-9]\{5\}$//')
+export CLUSTER_NAME=$(oc get infrastructure cluster -o=jsonpath="{.status.apiServerURL}" | awk -F '.' '{print $2}')
 export REGION=$(rosa describe cluster -c ${CLUSTER_NAME} --output json | jq -r .region.id)
 export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io cluster -o json | jq -r .spec.serviceAccountIssuer | sed  's|^https://||')
 export AWS_ACCOUNT_ID=`aws sts get-caller-identity --query Account --output text`
@@ -121,6 +121,7 @@ LEADER_ELECTION_NAMESPACE=
 RECONCILE_DEFAULT_MAX_CONCURRENT_SYNCS=1
 FEATURE_FLAGS=
 FEATURE_GATES=
+ENABLE_CARM=false
 EOF
 ----
 
@@ -191,10 +192,10 @@ cat << EOF | oc apply -f -
 apiVersion: s3.services.k8s.aws/v1alpha1
 kind: Bucket
 metadata:
-   name: ${CLUSTER-NAME}-bucket
+   name: ${CLUSTER_NAME}-bucket
    namespace: ack-system
 spec:
-   name: ${CLUSTER-NAME}-bucket
+   name: ${CLUSTER_NAME}-bucket
 EOF
 ----
 
