@@ -59,31 +59,29 @@ Continue your ROSA security journey by exploring these advanced topics:
 
 === Red Hat Documentation
 
-* link:https://docs.openshift.com/rosa/welcome/index.html[Red Hat OpenShift Service on AWS (ROSA) Documentation^]
-* link:https://docs.openshift.com/container-platform/latest/security/index.html[OpenShift Container Platform Security^]
-* link:https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-rosa-hcp-sts.html[ROSA with STS Tutorial^]
-* link:https://docs.openshift.com/container-platform/latest/observability/logging/log_storage/installing-log-storage.html[OpenShift Logging Documentation^]
+* link:https://docs.redhat.com/en/documentation/red_hat_openshift_service_on_aws/4[Red Hat OpenShift Service on AWS (ROSA) Documentation^]
+* link:https://docs.redhat.com/en/documentation/red_hat_openshift_service_on_aws/4/html/about/cloud-experts-rosa-hcp-sts-explained[ROSA with STS^]
+* link:https://cloud.redhat.com/experts/o11y/openshift-logging6-rosa-hcp/[OpenShift Logging Documentation^]
 
 === AWS Integration Resources
 
 * link:https://aws.amazon.com/rosa/[AWS ROSA Product Page^]
 * link:https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html[AWS IAM OIDC Identity Providers^]
 * link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_csi_driver.html[AWS Secrets Manager CSI Driver^]
-* link:https://aws.amazon.com/blogs/containers/using-irsa-in-red-hat-openshift-service-on-aws/[Using IRSA in ROSA (AWS Blog)^]
+* link:https://aws.amazon.com/blogs/containers/fine-grained-iam-roles-for-red-hat-openshift-service-on-aws-rosa-workloads-with-sts/[Using IRSA in ROSA (AWS Blog)^]
 
 === Community and Support
 
 * link:https://github.com/rh-mobb[Red Hat MOBB GitHub Repository^]
 * link:https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift Platform^]
 * link:https://access.redhat.com/support[Red Hat Customer Portal^]
-* link:https://aws.amazon.com/rosa/resources/[ROSA Resources and Case Studies^]
 
 === Advanced Topics
 
 * link:https://www.redhat.com/en/technologies/cloud-computing/openshift/advanced-cluster-security-kubernetes[Red Hat Advanced Cluster Security^]
-* link:https://aws-controllers-k8s.github.io/community/[AWS Controllers for Kubernetes (ACK)^]
+* link:https://aws-controllers-k8s.github.io/docs/[AWS Controllers for Kubernetes (ACK)^]
 * link:https://www.openpolicyagent.org/[Open Policy Agent^]
-* link:https://docs.openshift.com/container-platform/latest/security/compliance_operator/compliance-operator-understanding.html[OpenShift Compliance Operator^]
+* link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/security_and_compliance/compliance-operator[OpenShift Compliance Operator^]
 
 == Workshop Feedback
 
